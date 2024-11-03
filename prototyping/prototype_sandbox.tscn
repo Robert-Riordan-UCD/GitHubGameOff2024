@@ -119,10 +119,10 @@ region_rect = Rect2(0, 0, 640, 360)
 
 [node name="PathPuzzle" type="Sprite2D" parent="BackgroundHints"]
 texture_filter = 1
-position = Vector2(-743, 461)
+position = Vector2(-724.5, 461)
 texture = ExtResource("3_lbumo")
 region_enabled = true
-region_rect = Rect2(47, 602, 96, 74)
+region_rect = Rect2(24, 602, 119, 74)
 script = ExtResource("2_2gmgw")
 
 [node name="Area2D" type="Area2D" parent="BackgroundHints/PathPuzzle"]
