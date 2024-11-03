@@ -1,0 +1,3 @@
+[submodule "ultimate_platform_controller_2d"]
+	path = plugins/Ultimate-Platformer-Controller-2D
+	url = https://github.com/Robert-Riordan-UCD/Ultimate-Platformer-Controller-2D.git

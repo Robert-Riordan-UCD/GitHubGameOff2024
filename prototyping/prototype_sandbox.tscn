@@ -1,0 +1,269 @@
+[gd_scene load_steps=14 format=3 uid="uid://ddndh2p2r76gn"]
+
+[ext_resource type="Script" path="res://plugins/Ultimate-Platformer-Controller-2D/UltimatePlatformerController.gd" id="1_ceihu"]
+[ext_resource type="Script" path="res://prototyping/path_puzzle.gd" id="2_2gmgw"]
+[ext_resource type="Texture2D" uid="uid://c73aalvy0a8ox" path="res://prototyping/assets/player.png" id="2_8mp07"]
+[ext_resource type="Texture2D" uid="uid://dcon13vfhlyfc" path="res://icon.svg" id="2_67h00"]
+[ext_resource type="Script" path="res://prototyping/keyboard_hint.gd" id="2_ko665"]
+[ext_resource type="Texture2D" uid="uid://d3t3y8e6s8ept" path="res://prototyping/assets/background.png" id="3_lbumo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3u4f"]
+size = Vector2(189, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75vlx"]
+size = Vector2(125, 127)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1q4u"]
+size = Vector2(32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wdpc"]
+atlas = ExtResource("2_8mp07")
+region = Rect2(0, 192, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld4kb"]
+atlas = ExtResource("2_8mp07")
+region = Rect2(0, 192, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkes1"]
+atlas = ExtResource("2_8mp07")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2ddd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wdpc")
+}],
+"loop": true,
+"name": &"crouch_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ld4kb")
+}],
+"loop": true,
+"name": &"crouch_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkes1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="PrototypeSandbox" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(2, 2)
+
+[node name="Background" type="Sprite2D" parent="Background"]
+texture_filter = 1
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background2" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(0, 360)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background3" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(640, 0)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background4" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(640, 360)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background5" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(-1280, 0)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background6" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(-1280, 360)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background7" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(-640, 0)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Background8" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(-640, 360)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="BackgroundHints" type="Node2D" parent="."]
+
+[node name="PathPuzzle" type="Sprite2D" parent="BackgroundHints"]
+texture_filter = 1
+position = Vector2(-743, 461)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(47, 602, 96, 74)
+script = ExtResource("2_2gmgw")
+
+[node name="Area2D" type="Area2D" parent="BackgroundHints/PathPuzzle"]
+position = Vector2(167, -464)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackgroundHints/PathPuzzle/Area2D"]
+position = Vector2(-166.5, 465)
+shape = SubResource("RectangleShape2D_s3u4f")
+
+[node name="Keyboard" type="Sprite2D" parent="BackgroundHints"]
+texture_filter = 1
+position = Vector2(-107, 461)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(368, 751, 226, 76)
+script = ExtResource("2_ko665")
+
+[node name="HighlighKeys" type="Sprite2D" parent="BackgroundHints/Keyboard"]
+texture_filter = 1
+position = Vector2(-60, 0)
+texture = ExtResource("3_lbumo")
+region_enabled = true
+region_rect = Rect2(399, 1142, 44, 14)
+
+[node name="Area2D" type="Area2D" parent="BackgroundHints/Keyboard"]
+position = Vector2(107, -461)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackgroundHints/Keyboard/Area2D"]
+position = Vector2(-166.5, 465)
+shape = SubResource("RectangleShape2D_s3u4f")
+
+[node name="Timer" type="Timer" parent="BackgroundHints/Keyboard"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Node2D5" type="Node2D" parent="Platforms"]
+position = Vector2(-328, 175)
+rotation = -0.506675
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Node2D5"]
+position = Vector2(397, 620)
+scale = Vector2(19.52, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Node2D5/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_75vlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Node2D5/StaticBody2D"]
+texture = ExtResource("2_67h00")
+
+[node name="Node2D" type="Node2D" parent="Platforms"]
+position = Vector2(-782, -45)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Node2D"]
+position = Vector2(397, 620)
+scale = Vector2(19.52, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Node2D/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_75vlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Node2D/StaticBody2D"]
+texture = ExtResource("2_67h00")
+
+[node name="Node2D2" type="Node2D" parent="Platforms"]
+position = Vector2(959, -161)
+rotation = -1.5781
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Node2D2"]
+position = Vector2(397, 620)
+scale = Vector2(19.52, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Node2D2/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_75vlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Node2D2/StaticBody2D"]
+texture = ExtResource("2_67h00")
+
+[node name="Node2D3" type="Node2D" parent="Platforms"]
+position = Vector2(-2397, 467)
+rotation = -1.5781
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Node2D3"]
+position = Vector2(397, 620)
+scale = Vector2(19.52, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Node2D3/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_75vlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Node2D3/StaticBody2D"]
+texture = ExtResource("2_67h00")
+
+[node name="Node2D4" type="Node2D" parent="Platforms"]
+position = Vector2(-880, 360)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platforms/Node2D4"]
+position = Vector2(397, 620)
+scale = Vector2(19.52, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Node2D4/StaticBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_75vlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Node2D4/StaticBody2D"]
+texture = ExtResource("2_67h00")
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
+position = Vector2(125, 428)
+script = ExtResource("1_ceihu")
+PlayerSprite = NodePath("AnimatedSprite2D")
+PlayerCollider = NodePath("CollisionShape2D")
+jumpHeight = 3.0
+wallJump = true
+wallLatching = true
+wallLatchingModifer = true
+dashType = 1
+dashLength = 4.0
+crouch = true
+spriteHeight = 64
+idle = true
+crouch_idle = true
+crouch_walk = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_i1q4u")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_i2ddd")
+animation = &"crouch_idle"
+
+[connection signal="body_entered" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BackgroundHints/Keyboard/Area2D" to="BackgroundHints/Keyboard" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BackgroundHints/Keyboard/Area2D" to="BackgroundHints/Keyboard" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="BackgroundHints/Keyboard/Timer" to="BackgroundHints/Keyboard" method="_on_timer_timeout"]
