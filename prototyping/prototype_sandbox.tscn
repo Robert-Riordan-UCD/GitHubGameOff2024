@@ -390,7 +390,7 @@ monitorable = false
 position = Vector2(-166.5, 465)
 shape = SubResource("RectangleShape2D_s3u4f")
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("PlayerSprite", "PlayerCollider", "PlayerHitbox")]
 position = Vector2(-1246, 384)
 script = ExtResource("1_ceihu")
 PlayerSprite = NodePath("AnimatedSprite2D")
@@ -405,6 +405,8 @@ wallLatchingModifer = true
 dashType = 4
 dashLength = 4.0
 dashThroughWalls = true
+imuneWhileDashing = true
+PlayerHitbox = NodePath("HitBox/CollisionShape2D")
 crouch = true
 spriteHeight = 64
 run = true
