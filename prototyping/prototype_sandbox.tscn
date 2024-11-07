@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://ddndh2p2r76gn"]
+[gd_scene load_steps=38 format=4 uid="uid://ddndh2p2r76gn"]
 
 [ext_resource type="Script" path="res://prototyping/prototype_sandbox.gd" id="1_4jxuo"]
 [ext_resource type="Script" path="res://plugins/Ultimate-Platformer-Controller-2D/UltimatePlatformerController.gd" id="1_ceihu"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dcinsaqafoowa" path="res://prototyping/assets/Tileset.png" id="7_g0sun"]
 [ext_resource type="Script" path="res://prototyping/end.gd" id="7_m3vkf"]
 [ext_resource type="Texture2D" uid="uid://bpc6kfnie6lc2" path="res://prototyping/assets/stick_player.png" id="7_xqxad"]
+[ext_resource type="Script" path="res://prototyping/leaderboard.gd" id="12_wfw0m"]
+[ext_resource type="Theme" uid="uid://d2eakbmaefnt6" path="res://addons/silent_wolf/assets/themes/sw_theme.tres" id="13_asunl"]
+[ext_resource type="PackedScene" uid="uid://clllbf6am8qdf" path="res://addons/silent_wolf/common/SWButton.tscn" id="14_qg45v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3u4f"]
 size = Vector2(189, 118)
@@ -206,6 +209,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Theme" id="Theme_a71px"]
+
 [node name="PrototypeSandbox" type="Node2D"]
 script = ExtResource("1_4jxuo")
 
@@ -385,6 +390,64 @@ shape = SubResource("CapsuleShape2D_p346c")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_i2ddd")
 animation = &"falling"
+
+[node name="Leaderboard" type="CanvasLayer" parent="."]
+script = ExtResource("12_wfw0m")
+
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 25
+
+[node name="Label" type="Label" parent="Leaderboard/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "test text"
+
+[node name="Board" type="VBoxContainer" parent="Leaderboard/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("13_asunl")
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="TitleContainer" type="CenterContainer" parent="Leaderboard/MarginContainer/Board"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Leaderboard/MarginContainer/Board/TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="LoadingContainer" type="CenterContainer" parent="Leaderboard/MarginContainer/Board"]
+layout_mode = 2
+
+[node name="TextMessage" type="Label" parent="Leaderboard/MarginContainer/Board/LoadingContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Loading scores..."
+
+[node name="HighScores" type="CenterContainer" parent="Leaderboard/MarginContainer/Board"]
+layout_mode = 2
+theme = SubResource("Theme_a71px")
+
+[node name="ScoreItemContainer" type="VBoxContainer" parent="Leaderboard/MarginContainer/Board/HighScores"]
+layout_mode = 2
+
+[node name="CloseButtonContainer" type="CenterContainer" parent="Leaderboard/MarginContainer/Board"]
+visible = false
+layout_mode = 2
+
+[node name="CloseButton" parent="Leaderboard/MarginContainer/Board/CloseButtonContainer" instance=ExtResource("14_qg45v")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Close Leaderboard"
 
 [connection signal="body_entered" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_exited"]
