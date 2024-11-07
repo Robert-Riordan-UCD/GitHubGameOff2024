@@ -6,15 +6,22 @@ extends Node2D
 
 
 func _ready() -> void:
-	player.global_position = player_start.global_position
-	start.global_position = player_start.global_position
-
+	_restart()
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+	
+	if event.is_action_pressed("restart"):
+		_restart()
 
 
 func _on_hit_box_hit() -> void:
+	_restart()
+
+
+func _restart():
 	player.global_position = player_start.global_position
 	player.velocity = Vector2.ZERO
+	start.global_position = player_start.global_position
