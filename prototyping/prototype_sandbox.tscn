@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://ddndh2p2r76gn"]
+[gd_scene load_steps=45 format=4 uid="uid://ddndh2p2r76gn"]
 
 [ext_resource type="Script" path="res://prototyping/prototype_sandbox.gd" id="1_4jxuo"]
 [ext_resource type="Script" path="res://plugins/Ultimate-Platformer-Controller-2D/UltimatePlatformerController.gd" id="1_ceihu"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://prototyping/leaderboard.gd" id="12_wfw0m"]
 [ext_resource type="Theme" uid="uid://d2eakbmaefnt6" path="res://addons/silent_wolf/assets/themes/sw_theme.tres" id="13_asunl"]
 [ext_resource type="PackedScene" uid="uid://clllbf6am8qdf" path="res://addons/silent_wolf/common/SWButton.tscn" id="14_qg45v"]
+[ext_resource type="Script" path="res://prototyping/run_time.gd" id="16_tax3p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3u4f"]
 size = Vector2(189, 118)
@@ -405,7 +406,7 @@ wallLatchingModifer = true
 dashType = 4
 dashLength = 4.0
 dashThroughWalls = true
-imuneWhileDashing = true
+immuneWhileDashing = true
 PlayerHitbox = NodePath("HitBox/CollisionShape2D")
 crouch = true
 spriteHeight = 64
@@ -496,6 +497,25 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Close Leaderboard"
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="RunTime" type="Label" parent="GUI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+script = ExtResource("16_tax3p")
 
 [connection signal="body_entered" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BackgroundHints/PathPuzzle/Area2D" to="BackgroundHints/PathPuzzle" method="_on_area_2d_body_exited"]
