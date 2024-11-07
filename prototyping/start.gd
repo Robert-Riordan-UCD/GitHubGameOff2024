@@ -1,9 +1,5 @@
 extends Sprite2D
 
-var started: bool = false
-
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	if started: return
-	started = true
+func _on_area_2d_body_exited(body: Node2D) -> void:
 	SpeedrunTimer.reset_timer()
 	print("STARTING TIMER")
