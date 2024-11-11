@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=9 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
+[ext_resource type="PackedScene" uid="uid://n6paswmcoc2x" path="res://Player/player.tscn" id="2_qlywh"]
+[ext_resource type="Script" path="res://Utils/camera.gd" id="4_fn0mj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v08cb"]
 resource_name = "Main"
@@ -69,3 +71,9 @@ tile_set = SubResource("TileSet_g4s6d")
 position = Vector2(0, -13)
 tile_map_data = PackedByteArray("AAAXAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAZAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_fhi4r")
+
+[node name="Player" parent="." instance=ExtResource("2_qlywh")]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("4_fn0mj")
+target = NodePath("../Player")
