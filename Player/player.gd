@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var coyote_time: float = 0.2
 @export var jump_buffer: float = 0.4
 @export var jump_height: float = 4
+@export var fall_multiplier: float = 2
 
 # Jump state variables
 @onready var coyote_avalible: bool = false
@@ -52,18 +53,18 @@ func jump() -> void:
 		velocity.y = -jump_height * gravity / 10
 
 
-# FIXME: make a better gravity function
 func apply_gravity(delta: float) -> void:
-	velocity.y += delta*gravity
+	if Input.is_action_pressed("jump") and velocity.y < 0:
+		velocity.y += delta*gravity
+	else:
+		velocity.y += delta*gravity*fall_multiplier
 
 
 func update_jump_buffer() -> void:
 	if not is_on_floor() and Input.is_action_just_pressed("jump"):
-		print("Jump buffer avalible")
 		jump_buffer_avalible = true
 		await get_tree().create_timer(jump_buffer).timeout
 		jump_buffer_avalible = false
-		print("Jump NOT buffer avalible")
 
 
 func update_coyote_timer() -> void:
