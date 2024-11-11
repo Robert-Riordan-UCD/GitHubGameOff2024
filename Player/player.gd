@@ -35,6 +35,8 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		jump()
+	elif event.is_action_pressed("flip_gravity"):
+		up_direction = -up_direction
 
 
 func update_x_velocity(direction: float, delta: float) -> void:
@@ -50,14 +52,14 @@ func update_x_velocity(direction: float, delta: float) -> void:
 
 func jump() -> void:
 	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
-		velocity.y = -jump_height * gravity / 10
+		velocity.y = up_direction.y * jump_height * gravity / 10
 
 
 func apply_gravity(delta: float) -> void:
-	if Input.is_action_pressed("jump") and velocity.y < 0:
-		velocity.y += delta*gravity
+	if Input.is_action_pressed("jump") and velocity.y*up_direction.y > 0:
+		velocity.y -= delta*gravity*up_direction.y
 	else:
-		velocity.y += delta*gravity*fall_multiplier
+		velocity.y -= delta*gravity*fall_multiplier*up_direction.y
 
 
 func update_jump_buffer() -> void:
