@@ -7,5 +7,5 @@ func _ready() -> void:
 		push_error("No target assigned to camera")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position = target.global_position
