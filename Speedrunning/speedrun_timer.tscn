@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmojufbvd27jm"]
+
+[ext_resource type="Script" path="res://Speedrunning/speedrun_timer.gd" id="1_n8sjf"]
+
+[node name="SpeedrunTimer" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_n8sjf")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.5
+offset_right = 17.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "0.0 s"

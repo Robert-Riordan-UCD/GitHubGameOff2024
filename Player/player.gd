@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 signal hit
@@ -132,5 +133,5 @@ func update_dash_allowed() -> void:
 		can_dash = true
 
 
-func _on_hurt_box_body_entered(body: Node2D) -> void:
+func _on_hurt_box_body_entered(_body: Node2D) -> void:
 	hit.emit()

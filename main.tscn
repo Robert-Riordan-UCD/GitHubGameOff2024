@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=12 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
 [ext_resource type="PackedScene" uid="uid://n6paswmcoc2x" path="res://Player/player.tscn" id="2_qlywh"]
 [ext_resource type="Script" path="res://Utils/camera.gd" id="4_fn0mj"]
+[ext_resource type="PackedScene" uid="uid://bforfy1gv6nau" path="res://Speedrunning/finish.tscn" id="5_kai3u"]
+[ext_resource type="PackedScene" uid="uid://bmojufbvd27jm" path="res://Speedrunning/speedrun_timer.tscn" id="5_sm15w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v08cb"]
 resource_name = "Main"
@@ -82,4 +84,24 @@ target = NodePath("../Player")
 
 [node name="PlayerStart" type="Node2D" parent="."]
 
+[node name="Finish" parent="." instance=ExtResource("5_kai3u")]
+position = Vector2(79, 103)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="SpeedrunTimer" parent="GUI/MarginContainer" instance=ExtResource("5_sm15w")]
+layout_mode = 2
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
