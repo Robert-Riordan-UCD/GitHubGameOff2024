@@ -15,8 +15,8 @@ func display_leaderboard(new_time: float) -> void:
 	var score_id: String = await submit_score(new_time)
 	await display_top_ten(score_id)
 	insert_buffer()
-	await display_player_score(score_id)
 	leaderboard_table.visible = true
+	await display_player_score(score_id)
 	loading.visible = false
 
 

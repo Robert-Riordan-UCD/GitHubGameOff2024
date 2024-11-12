@@ -31,13 +31,6 @@ theme_override_font_sizes/font_size = 32
 text = "Leaderboard"
 horizontal_alignment = 1
 
-[node name="Loading" type="Label" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 16
-text = "Loading..."
-horizontal_alignment = 1
-
 [node name="LeaderboardTable" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(240, 0)
@@ -117,6 +110,13 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.25s"
+
+[node name="Loading" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 16
+text = "Loading..."
+horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
