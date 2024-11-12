@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=13 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Utils/camera.gd" id="4_fn0mj"]
 [ext_resource type="PackedScene" uid="uid://bforfy1gv6nau" path="res://Speedrunning/finish.tscn" id="5_kai3u"]
 [ext_resource type="PackedScene" uid="uid://bmojufbvd27jm" path="res://Speedrunning/speedrun_timer.tscn" id="5_sm15w"]
+[ext_resource type="PackedScene" uid="uid://culdpijj5tkws" path="res://Speedrunning/leaderboard.tscn" id="7_g77eq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v08cb"]
 resource_name = "Main"
@@ -101,6 +102,12 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
 [node name="SpeedrunTimer" parent="GUI/MarginContainer" instance=ExtResource("5_sm15w")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Leaderboard" parent="GUI/MarginContainer" instance=ExtResource("7_g77eq")]
+visible = false
 layout_mode = 2
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
