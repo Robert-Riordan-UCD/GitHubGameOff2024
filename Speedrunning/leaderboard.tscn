@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://culdpijj5tkws"]
+[gd_scene load_steps=3 format=3 uid="uid://culdpijj5tkws"]
+
+[ext_resource type="Script" path="res://Speedrunning/leaderboard.gd" id="1_pfmj8"]
+[ext_resource type="PackedScene" uid="uid://bofxu2xh6p7xd" path="res://Speedrunning/leader_board_label.tscn" id="2_7be7q"]
 
 [node name="Leaderboard" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pfmj8")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -27,261 +31,89 @@ theme_override_font_sizes/font_size = 32
 text = "Leaderboard"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="Loading" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 16
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="LeadboardTable" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 20
 columns = 3
 
-[node name="Rank" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Rank" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
 text = "Rank"
 
-[node name="Name" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Name" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Player"
+text = "Name"
 
-[node name="Time" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Time" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "Time"
 
-[node name="Rank2" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "1"
-
-[node name="Name2" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Best"
-
-[node name="Time2" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.42s"
-
-[node name="Rank15" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "1"
-
-[node name="Name15" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Best"
-
-[node name="Time15" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.42s"
-
-[node name="Rank3" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "2"
-
-[node name="Name3" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Almost"
-
-[node name="Time3" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.90s"
-
-[node name="Rank4" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "3"
-
-[node name="Name4" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Nearly"
-
-[node name="Time4" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "1.25s"
-
-[node name="Rank12" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "1"
-
-[node name="Name12" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Best"
-
-[node name="Time12" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.42s"
-
-[node name="Rank13" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "2"
-
-[node name="Name13" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Almost"
-
-[node name="Time13" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.90s"
-
-[node name="Rank14" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "3"
-
-[node name="Name14" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Nearly"
-
-[node name="Time14" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "1.25s"
-
-[node name="Rank9" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "1"
-
-[node name="Name9" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Best"
-
-[node name="Time9" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.42s"
-
-[node name="Rank10" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "2"
-
-[node name="Name10" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Almost"
-
-[node name="Time10" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "0.90s"
-
-[node name="Rank11" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "3"
-
-[node name="Name11" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Nearly"
-
-[node name="Time11" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "1.25s"
-
-[node name="Rank5" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 10
-
-[node name="Name5" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "..."
-
-[node name="Time5" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-
-[node name="Rank6" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Rank6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "264"
 
-[node name="Name6" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Name6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "Nearly you"
 
-[node name="Time6" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Time6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.10s"
 
-[node name="Rank7" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Rank7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "265"
 
-[node name="Name7" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Name7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "You"
 
-[node name="Time7" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Time7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.15s"
 
-[node name="Rank8" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Rank8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "266"
 
-[node name="Name8" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Name8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "Also nearly you"
 
-[node name="Time8" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Time8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.25s"
