@@ -10,7 +10,7 @@ extends Label
 		if state: timer.start()
 
 
-# Toggle visiblity without changine layout of surounding elements
+# Toggle visiblity without changing layout of surounding elements
 func _on_timer_timeout() -> void:
 	on = not on
 	if on: leader_board_label.self_modulate = Color(0, 0, 0, 0)
