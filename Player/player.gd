@@ -6,8 +6,8 @@ extends CharacterBody2D
 @export var time_to_min_speed: float = 0.25
 
 @export_group("Dash")
-@export var dash_boost: float = 5
-@export var dash_time: float = 0.5
+@export var dash_boost: float = 2
+@export var dash_time: float = 0.2
 
 @export_group("Jump")
 @export var gravity: float = 1000
@@ -27,6 +27,8 @@ extends CharacterBody2D
 @onready var jump_buffer_avalible: bool = false
 
 @onready var dashing: bool = false
+@onready var can_dash: bool = false
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _physics_process(delta: float) -> void:
 	# Left/right movement
@@ -40,6 +42,7 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	update_jump_buffer()
 	update_coyote_timer()
+	update_dash_allowed()
 	move_and_slide()
 
 
@@ -72,15 +75,20 @@ func jump() -> void:
 
 
 func dash() -> void:
-	var direction: float = Input.get_axis("left", "right")
-	if is_on_floor() and direction:
-		velocity.x = dash_boost*direction*max_run_speed
+	if dashing or not can_dash: return
+	var direction: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up","down"))
+	if direction != Vector2.ZERO:
+		velocity = dash_boost*direction*max_run_speed
 		dashing = true
+		can_dash = false
+		collision_shape_2d.disabled = true
 		await get_tree().create_timer(dash_time).timeout
+		collision_shape_2d.disabled = false
 		dashing = false
 
 
 func apply_gravity(delta: float) -> void:
+	if dashing: return
 	if is_on_wall():
 		if wall_slide(delta):
 			return
@@ -115,3 +123,9 @@ func update_coyote_timer() -> void:
 		await get_tree().create_timer(coyote_time).timeout
 		coyote_avalible = false
 	coyote_was_on_floor = is_on_floor()
+
+
+func update_dash_allowed() -> void:
+	print(can_dash)
+	if is_on_floor():
+		can_dash = true
