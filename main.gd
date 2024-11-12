@@ -19,3 +19,4 @@ func reset() -> void:
 
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
+	player.lock_control()

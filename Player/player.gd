@@ -33,7 +33,15 @@ signal hit
 @onready var can_dash: bool = false
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
+@onready var can_move: bool = true
+
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		update_x_velocity(0, delta)
+		apply_gravity(delta)
+		move_and_slide()
+		return
+	
 	# Left/right movement
 	var direction: float = Input.get_axis("left", "right")
 	if not dashing:
@@ -131,6 +139,10 @@ func update_coyote_timer() -> void:
 func update_dash_allowed() -> void:
 	if is_on_floor():
 		can_dash = true
+
+
+func lock_control():
+	can_move = false
 
 
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
