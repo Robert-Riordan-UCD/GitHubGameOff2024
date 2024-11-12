@@ -58,6 +58,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not can_move: return
 	if event.is_action_pressed("jump"):
 		jump()
 	elif event.is_action_pressed("flip_gravity"):
@@ -120,6 +121,7 @@ func wall_slide(delta: float) -> bool:
 			velocity.y = clamp(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
 		return true
 	return false
+
 
 func update_jump_buffer() -> void:
 	if not is_on_floor() and Input.is_action_just_pressed("jump"):
