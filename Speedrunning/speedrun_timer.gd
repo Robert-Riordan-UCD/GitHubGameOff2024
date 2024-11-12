@@ -23,4 +23,4 @@ func reset_timer():
 
 func get_run_time():
 	if stopped: return stop_time
-	return snapped(Time.get_unix_time_from_system() - start_time, 0.01)
+	return snapped(Time.get_unix_time_from_system() - start_time, 0.001)

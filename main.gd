@@ -21,5 +21,5 @@ func reset() -> void:
 
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
-	leaderboard.display_leaderboard()
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time())
 	player.lock_control()
