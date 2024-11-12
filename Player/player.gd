@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
+signal hit
+
 @export_category("Movement")
 @export var max_run_speed: float = 300
 @export var time_to_max_speed: float = 0.5
-@export var time_to_min_speed: float = 0.25
+@export var time_to_min_speed: float = 0.1
 
 @export_group("Dash")
 @export var dash_boost: float = 2
@@ -126,6 +128,9 @@ func update_coyote_timer() -> void:
 
 
 func update_dash_allowed() -> void:
-	print(can_dash)
 	if is_on_floor():
 		can_dash = true
+
+
+func _on_hurt_box_body_entered(body: Node2D) -> void:
+	hit.emit()
