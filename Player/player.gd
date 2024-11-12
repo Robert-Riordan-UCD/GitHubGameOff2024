@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
-@export_category("On Ground")
+@export_category("Movement")
 @export var max_run_speed: float = 300
 @export var time_to_max_speed: float = 0.5
 @export var time_to_min_speed: float = 0.25
 
-@export_category("In Air")
+@export_group("Dash")
+@export var dash_boost: float = 5
+@export var dash_time: float = 0.5
+
+@export_group("Jump")
 @export var gravity: float = 1000
 @export_range(0, 1) var air_control: float = 0.75
 @export var coyote_time: float = 0.2
@@ -13,7 +17,7 @@ extends CharacterBody2D
 @export var jump_height: float = 4
 @export var fall_multiplier: float = 2
 
-@export_category("On Wall")
+@export_group("Wall slide")
 @export_range(0, 1) var max_wall_slide_speed: float = 25
 @export var wall_jump_out_force: float = 350
 
@@ -22,13 +26,16 @@ extends CharacterBody2D
 @onready var coyote_was_on_floor: bool = false
 @onready var jump_buffer_avalible: bool = false
 
+@onready var dashing: bool = false
+
 func _physics_process(delta: float) -> void:
 	# Left/right movement
 	var direction: float = Input.get_axis("left", "right")
-	if is_on_floor():
-		update_x_velocity(direction, delta)
-	elif not is_on_wall():
-		update_x_velocity(direction*air_control, delta)
+	if not dashing:
+		if is_on_floor():
+			update_x_velocity(direction, delta)
+		elif not is_on_wall():
+			update_x_velocity(direction*air_control, delta)
 	
 	apply_gravity(delta)
 	update_jump_buffer()
@@ -41,6 +48,8 @@ func _input(event: InputEvent) -> void:
 		jump()
 	elif event.is_action_pressed("flip_gravity"):
 		up_direction = -up_direction
+	elif event.is_action_pressed("dash"):
+		dash()
 
 
 func update_x_velocity(direction: float, delta: float) -> void:
@@ -60,6 +69,15 @@ func jump() -> void:
 	elif is_on_wall_only():
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		velocity.x = get_wall_normal().x * wall_jump_out_force
+
+
+func dash() -> void:
+	var direction: float = Input.get_axis("left", "right")
+	if is_on_floor() and direction:
+		velocity.x = dash_boost*direction*max_run_speed
+		dashing = true
+		await get_tree().create_timer(dash_time).timeout
+		dashing = false
 
 
 func apply_gravity(delta: float) -> void:
