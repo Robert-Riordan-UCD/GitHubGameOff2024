@@ -36,6 +36,29 @@ signal hit
 
 @onready var can_move: bool = true
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+func _process(_delta: float) -> void:
+	select_animation()
+	flip_sprite()
+
+
+func select_animation():
+	if dashing:				animated_sprite_2d.play("Dash")
+	elif is_on_floor():
+		if velocity.x == 0:	animated_sprite_2d.play("Idle")
+		else:				animated_sprite_2d.play("Run")
+	elif is_on_wall():		animated_sprite_2d.play("Wall Slide")
+	elif velocity.y < 0:	animated_sprite_2d.play("Jump")
+	else:					animated_sprite_2d.play("Falling")
+
+
+func flip_sprite():
+	if velocity.x != 0:
+		animated_sprite_2d.flip_h = velocity.x < 0
+	animated_sprite_2d.flip_v = up_direction != Vector2.UP
+
+
 func _physics_process(delta: float) -> void:
 	if not can_move:
 		update_x_velocity(0, delta)

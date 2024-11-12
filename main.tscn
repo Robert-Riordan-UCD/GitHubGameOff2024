@@ -78,8 +78,10 @@ tile_map_data = PackedByteArray("AAAXAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAZAAAAAAAAAAA
 tile_set = SubResource("TileSet_fhi4r")
 
 [node name="Player" parent="." instance=ExtResource("2_qlywh")]
+scale = Vector2(0.75, 0.75)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position_smoothing_enabled = true
 script = ExtResource("4_fn0mj")
 target = NodePath("../Player")
 
