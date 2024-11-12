@@ -13,5 +13,5 @@ extends Label
 # Toggle visiblity without changing layout of surounding elements
 func _on_timer_timeout() -> void:
 	on = not on
-	if on: leader_board_label.self_modulate = Color(0, 0, 0, 0)
-	else: leader_board_label.self_modulate = Color(255, 255, 255, 255)
+	if on: leader_board_label.self_modulate = Color(127)
+	else: leader_board_label.self_modulate = Color(255)

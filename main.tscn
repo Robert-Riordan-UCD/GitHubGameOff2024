@@ -112,3 +112,4 @@ layout_mode = 2
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
+[connection signal="restart" from="GUI/MarginContainer/Leaderboard" to="." method="_on_leaderboard_restart"]

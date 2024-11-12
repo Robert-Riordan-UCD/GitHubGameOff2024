@@ -145,5 +145,9 @@ func lock_control():
 	can_move = false
 
 
+func unlock_control():
+	can_move = true
+
+
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
 	hit.emit()

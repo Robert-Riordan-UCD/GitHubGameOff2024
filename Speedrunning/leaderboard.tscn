@@ -38,81 +38,81 @@ theme_override_font_sizes/font_size = 16
 text = "Loading..."
 horizontal_alignment = 1
 
-[node name="LeadboardTable" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="LeaderboardTable" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 20
 columns = 3
 
-[node name="Rank" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
+[node name="Rank" parent="HBoxContainer/VBoxContainer/LeaderboardTable" instance=ExtResource("2_7be7q")]
 layout_mode = 2
 text = "Rank"
 
-[node name="Name" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
+[node name="Name" parent="HBoxContainer/VBoxContainer/LeaderboardTable" instance=ExtResource("2_7be7q")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "Name"
+text = "Player"
 
-[node name="Time" parent="HBoxContainer/VBoxContainer/LeadboardTable" instance=ExtResource("2_7be7q")]
+[node name="Time" parent="HBoxContainer/VBoxContainer/LeaderboardTable" instance=ExtResource("2_7be7q")]
 layout_mode = 2
 text = "Time"
 
-[node name="Rank6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Rank6" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "264"
 
-[node name="Name6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Name6" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "Nearly you"
 
-[node name="Time6" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Time6" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.10s"
 
-[node name="Rank7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Rank7" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "265"
 
-[node name="Name7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Name7" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "You"
 
-[node name="Time7" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Time7" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "45.15s"
 
-[node name="Rank8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Rank8" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "266"
 
-[node name="Name8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Name8" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 text = "Also nearly you"
 
-[node name="Time8" type="Label" parent="HBoxContainer/VBoxContainer/LeadboardTable"]
+[node name="Time8" type="Label" parent="HBoxContainer/VBoxContainer/LeaderboardTable"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
@@ -122,3 +122,5 @@ text = "45.25s"
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Restart"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -1,20 +1,35 @@
 extends Control
 
+signal restart
+
 @onready var loading: Label = $HBoxContainer/VBoxContainer/Loading
-@onready var leadboard_table: GridContainer = $HBoxContainer/VBoxContainer/LeadboardTable
+@onready var leaderboard_table: GridContainer = $HBoxContainer/VBoxContainer/LeaderboardTable
 const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
 
 func display_leaderboard(new_time: float) -> void:
+	clear_leader_board()
 	visible = true
 	players_score = new_time
 	var score_id: String = await submit_score(new_time)
 	await display_top_ten(score_id)
 	insert_buffer()
 	await display_player_score(score_id)
-	leadboard_table.visible = true
+	leaderboard_table.visible = true
 	loading.visible = false
+
+
+func hide_leader_board() -> void:
+	loading.visible = true
+	leaderboard_table.visible = false
+	visible = false
+
+
+func clear_leader_board() -> void:
+	for child in leaderboard_table.get_children().slice(3):
+		leaderboard_table.remove_child(child)
+		child.queue_free()
 
 
 # TODO: Handle error result
@@ -51,15 +66,15 @@ func display_player_score(score_id: String) -> void:
 func append_score(rank: int, player_name: String, score: float, is_new_score: bool=false) -> void:
 	var rank_label: Label = LEADER_BOARD_LABEL.instantiate()
 	rank_label.text = str(rank)
-	leadboard_table.add_child(rank_label)
+	leaderboard_table.add_child(rank_label)
 	
 	var name_label: Label = LEADER_BOARD_LABEL.instantiate()
 	name_label.text = player_name
-	leadboard_table.add_child(name_label)
+	leaderboard_table.add_child(name_label)
 	
 	var score_label: Label = LEADER_BOARD_LABEL.instantiate()
 	score_label.text = "%.3fs" % score
-	leadboard_table.add_child(score_label)
+	leaderboard_table.add_child(score_label)
 	
 	rank_label.flash = is_new_score
 	name_label.flash = is_new_score
@@ -68,11 +83,16 @@ func append_score(rank: int, player_name: String, score: float, is_new_score: bo
 
 func insert_buffer() -> void:
 	var rank_label: Label = LEADER_BOARD_LABEL.instantiate()
-	leadboard_table.add_child(rank_label)
+	leaderboard_table.add_child(rank_label)
 	
 	var name_label: Label = LEADER_BOARD_LABEL.instantiate()
 	name_label.text = '...'
-	leadboard_table.add_child(name_label)
+	leaderboard_table.add_child(name_label)
 	
 	var score_label: Label = LEADER_BOARD_LABEL.instantiate()
-	leadboard_table.add_child(score_label)
+	leaderboard_table.add_child(score_label)
+
+
+func _on_button_pressed() -> void:
+	hide_leader_board()
+	restart.emit()
