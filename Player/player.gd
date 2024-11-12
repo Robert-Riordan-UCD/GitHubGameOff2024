@@ -32,6 +32,7 @@ signal hit
 @onready var dashing: bool = false
 @onready var can_dash: bool = false
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var hurt_box_collision_shape_2d: CollisionShape2D = $HurtBox/CollisionShape2D
 
 @onready var can_move: bool = true
 
@@ -94,7 +95,9 @@ func dash() -> void:
 		dashing = true
 		can_dash = false
 		collision_shape_2d.disabled = true
+		hurt_box_collision_shape_2d.disabled = true
 		await get_tree().create_timer(dash_time).timeout
+		hurt_box_collision_shape_2d.disabled = false
 		collision_shape_2d.disabled = false
 		dashing = false
 
