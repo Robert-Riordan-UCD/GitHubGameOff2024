@@ -31,3 +31,12 @@ func _on_finish_player_reached_finish() -> void:
 
 func _on_leaderboard_restart() -> void:
 	reset()
+
+
+func _on_player_start_player_started() -> void:
+	speedrun_timer.reset_timer()
+
+
+func _on_player_start_player_not_started() -> void:
+	speedrun_timer.reset_timer()
+	speedrun_timer.stop_timer()

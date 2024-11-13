@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=15 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
 [ext_resource type="PackedScene" uid="uid://n6paswmcoc2x" path="res://Player/player.tscn" id="2_qlywh"]
+[ext_resource type="PackedScene" uid="uid://byty8kcdroyym" path="res://Speedrunning/player_start.tscn" id="4_2l1li"]
 [ext_resource type="Script" path="res://Utils/camera.gd" id="4_fn0mj"]
 [ext_resource type="PackedScene" uid="uid://bforfy1gv6nau" path="res://Speedrunning/finish.tscn" id="5_kai3u"]
 [ext_resource type="PackedScene" uid="uid://bmojufbvd27jm" path="res://Speedrunning/speedrun_timer.tscn" id="5_sm15w"]
@@ -90,7 +91,7 @@ position_smoothing_enabled = true
 script = ExtResource("4_fn0mj")
 target = NodePath("../Player")
 
-[node name="PlayerStart" type="Node2D" parent="."]
+[node name="PlayerStart" parent="." instance=ExtResource("4_2l1li")]
 
 [node name="Finish" parent="." instance=ExtResource("5_kai3u")]
 position = Vector2(712, -446)
@@ -121,6 +122,8 @@ size_flags_vertical = 1
 visible = false
 layout_mode = 2
 
+[connection signal="player_not_started" from="PlayerStart" to="." method="_on_player_start_player_not_started"]
+[connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="restart" from="GUI/MarginContainer/Leaderboard" to="." method="_on_leaderboard_restart"]
