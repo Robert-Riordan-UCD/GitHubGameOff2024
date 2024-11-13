@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	if not dashing:
 		if is_on_floor():
 			update_x_velocity(direction, delta)
-		elif not is_on_wall():
+		elif not is_on_wall() and direction != 0:
 			update_x_velocity(direction*air_control, delta)
 	
 	apply_gravity(delta)
