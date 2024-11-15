@@ -4,11 +4,13 @@ signal restart
 
 @onready var loading: Label = $HBoxContainer/VBoxContainer/Loading
 @onready var leaderboard_table: GridContainer = $HBoxContainer/VBoxContainer/LeaderboardTable
+@onready var button: Button = $HBoxContainer/VBoxContainer/Button
 const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
 
 func display_leaderboard(new_time: float, player_name: String) -> void:
+	button.grab_focus()
 	clear_leader_board()
 	visible = true
 	players_score = new_time
