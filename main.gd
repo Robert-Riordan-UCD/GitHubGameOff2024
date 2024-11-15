@@ -43,8 +43,8 @@ func _on_player_start_player_not_started() -> void:
 	speedrun_timer.stop_timer()
 
 
-func _on_submit_score_submit(name: String) -> void:
-	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), name)
+func _on_submit_score_submit(player_name: String) -> void:
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), player_name)
 
 
 func _on_submit_score_skip() -> void:

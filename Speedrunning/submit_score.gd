@@ -1,6 +1,6 @@
 extends Control
 
-signal submit(name: String)
+signal submit(player_name: String)
 signal skip
 
 @onready var line_edit: LineEdit = $VBoxContainer/LineEdit
@@ -22,6 +22,7 @@ func _on_submit_pressed() -> void:
 
 func _on_skip_pressed() -> void:
 	skip.emit()
+	visible = false
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:
