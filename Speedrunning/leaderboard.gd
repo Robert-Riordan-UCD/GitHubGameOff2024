@@ -8,15 +8,15 @@ const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
 
-func display_leaderboard(new_time: float) -> void:
+func display_leaderboard(new_time: float, player_name: String) -> void:
 	clear_leader_board()
 	visible = true
 	players_score = new_time
-	var score_id: String = await submit_score(new_time)
+	var score_id: String = await submit_score(new_time, player_name)
 	await display_top_ten(score_id)
 	insert_buffer()
 	leaderboard_table.visible = true
-	await display_player_score(score_id)
+	await display_player_score(score_id, player_name)
 	loading.visible = false
 
 
@@ -33,8 +33,8 @@ func clear_leader_board() -> void:
 
 
 # TODO: Handle error result
-func submit_score(new_time: float) -> String:
-	var sw_result: Dictionary = await SilentWolf.Scores.save_score("new dev", -new_time).sw_save_score_complete
+func submit_score(new_time: float, player_name: String) -> String:
+	var sw_result: Dictionary = await SilentWolf.Scores.save_score(player_name, -new_time).sw_save_score_complete
 	return sw_result.score_id
 
 
@@ -48,14 +48,15 @@ func display_top_ten(new_score_id) -> void:
 		rank += 1
 
 
-func display_player_score(score_id: String) -> void:
+func display_player_score(score_id: String, player_name: String) -> void:
 	var sw_result = await SilentWolf.Scores.get_scores_around(score_id, 1).sw_get_scores_around_complete
 	# Score above
+	if sw_result.scores_above.size() == 0: return # Player is first :D
 	var above = sw_result.scores_above[0]
 	append_score(above.position, above.player_name, -above.score)
 
 	# Players score
-	append_score(above.position+1, "--FIXME--", players_score, true)
+	append_score(above.position+1, player_name, players_score, true)
 
 	# Score below
 	if sw_result.scores_below.size() == 0: return # Player is last :o

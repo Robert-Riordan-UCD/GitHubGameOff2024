@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=16 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bforfy1gv6nau" path="res://Speedrunning/finish.tscn" id="5_kai3u"]
 [ext_resource type="PackedScene" uid="uid://bmojufbvd27jm" path="res://Speedrunning/speedrun_timer.tscn" id="5_sm15w"]
 [ext_resource type="PackedScene" uid="uid://culdpijj5tkws" path="res://Speedrunning/leaderboard.tscn" id="7_g77eq"]
+[ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v08cb"]
 resource_name = "Main"
@@ -122,8 +123,14 @@ size_flags_vertical = 1
 visible = false
 layout_mode = 2
 
+[node name="SubmitScore" parent="GUI/MarginContainer" instance=ExtResource("9_ujeic")]
+visible = false
+layout_mode = 2
+
 [connection signal="player_not_started" from="PlayerStart" to="." method="_on_player_start_player_not_started"]
 [connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="restart" from="GUI/MarginContainer/Leaderboard" to="." method="_on_leaderboard_restart"]
+[connection signal="skip" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_skip"]
+[connection signal="submit" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_submit"]

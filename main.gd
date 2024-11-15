@@ -4,6 +4,7 @@ extends Node2D
 @onready var player_start: Node2D = $PlayerStart
 @onready var speedrun_timer: Control = $GUI/MarginContainer/SpeedrunTimer
 @onready var leaderboard: Control = $GUI/MarginContainer/Leaderboard
+@onready var submit_score: Control = $GUI/MarginContainer/SubmitScore
 @onready var finish: Node2D = $Finish
 
 func _ready() -> void:
@@ -25,7 +26,7 @@ func reset() -> void:
 
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
-	leaderboard.display_leaderboard(speedrun_timer.get_run_time())
+	submit_score.display(speedrun_timer.get_run_time())
 	player.lock_control()
 
 
@@ -40,3 +41,11 @@ func _on_player_start_player_started() -> void:
 func _on_player_start_player_not_started() -> void:
 	speedrun_timer.reset_timer()
 	speedrun_timer.stop_timer()
+
+
+func _on_submit_score_submit(name: String) -> void:
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), name)
+
+
+func _on_submit_score_skip() -> void:
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anon")
