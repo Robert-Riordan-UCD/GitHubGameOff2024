@@ -17,7 +17,7 @@ signal hit
 @export_range(0, 1) var air_control: float = 0.75
 @export var coyote_time: float = 0.2
 @export var jump_buffer: float = 0.4
-@export var jump_height: float = 4
+@export var jump_height: float = 4.5
 @export var fall_multiplier: float = 2
 
 @export_group("Wall slide")
@@ -84,7 +84,6 @@ func _physics_process(delta: float) -> void:
 	update_dash_allowed()
 	move_and_slide()
 	wall_sliding = is_on_wall_only()
-	print(wall_sliding, '\t', velocity)
 
 
 func _input(event: InputEvent) -> void:
@@ -156,7 +155,7 @@ func fall(delta: float) -> void:
 
 func wall_slide(delta: float) -> void:
 	# Only slide if falling or player wants to
-	#if velocity.y*up_direction.y < 0:
+	if velocity.y*up_direction.y < 0:
 		if Input.get_axis("slide_down", "slide_up") == up_direction.y:
 			velocity.y -= delta*gravity*up_direction.y
 		else:
@@ -164,8 +163,8 @@ func wall_slide(delta: float) -> void:
 			velocity.y = clamp(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
 		
 		velocity.x = -get_wall_normal().x
-	#else:
-		#fall(delta)
+	else:
+		fall(delta)
 
 
 func update_jump_buffer() -> void:
