@@ -100,6 +100,9 @@ func update_x_velocity(direction: float, delta: float) -> void:
 			velocity.x -= max_run_speed * delta / time_to_min_speed
 		elif velocity.x < 0:
 			velocity.x += max_run_speed * delta / time_to_min_speed
+	# Prevent player wiggling around 0
+	if abs(velocity.x) < 40 and not (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
+		velocity.x = 0
 
 
 func jump() -> void:
