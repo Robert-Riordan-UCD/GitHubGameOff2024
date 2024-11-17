@@ -119,11 +119,14 @@ func update_x_velocity(direction: float, delta: float) -> void:
 
 func jump() -> void:
 	print("JUMPING")
+	print(jump_buffer_avalible, coyote_avalible)
+	print(wall_jump_buffer_avalible, wall_coyote_avalible)
 	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		print("  just the regular")
 	elif wall_sliding or wall_jump_buffer_avalible or wall_coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
+		print(get_wall_normal().x * wall_jump_out_force)
 		velocity.x = get_wall_normal().x * wall_jump_out_force
 		print("  off the wall!")
 
@@ -145,9 +148,13 @@ func dash() -> void:
 
 func apply_gravity(delta: float) -> void:
 	if dashing: return
-	if is_on_wall():
-		if wall_slide(delta):
-			return
+	if wall_sliding:
+		wall_slide(delta)
+	else:
+		fall(delta)
+
+
+func fall(delta: float) -> void:
 	if Input.is_action_pressed("jump") and velocity.y*up_direction.y > 0:
 		velocity.y -= delta*gravity*up_direction.y
 	else:
@@ -155,7 +162,7 @@ func apply_gravity(delta: float) -> void:
 
 
 # Returns true is wall slide is applied. Otherwise false
-func wall_slide(delta: float) -> bool:
+func wall_slide(delta: float) -> void:
 	# Only slide if falling or player wants to
 	if velocity.y*up_direction.y < 0:
 		if Input.get_axis("slide_down", "slide_up") == up_direction.y:
@@ -163,11 +170,14 @@ func wall_slide(delta: float) -> bool:
 		else:
 			velocity.y -= delta*gravity*up_direction.y
 			velocity.y = clamp(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
-		return true
-	return false
+	else:
+		fall(delta)
 
 
 func update_jump_buffer() -> void:
+	if is_on_wall():
+		jump_buffer_avalible = false
+		return
 	if not is_on_floor() and Input.is_action_just_pressed("jump"):
 		jump_buffer_avalible = true
 		await get_tree().create_timer(jump_buffer).timeout
@@ -175,6 +185,9 @@ func update_jump_buffer() -> void:
 
 
 func update_wall_jump_buffer() -> void:
+	if is_on_floor():
+		wall_jump_buffer_avalible = false
+		return
 	if not is_on_wall_only() and Input.is_action_just_pressed("jump"):
 		wall_jump_buffer_avalible = true
 		await get_tree().create_timer(jump_buffer).timeout
