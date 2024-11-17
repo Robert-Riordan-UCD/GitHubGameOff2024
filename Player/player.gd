@@ -37,7 +37,6 @@ signal hit
 @onready var can_dash: bool = false
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hurt_box_collision_shape_2d: CollisionShape2D = $HurtBox/CollisionShape2D
-@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 @onready var can_move: bool = true
 
@@ -61,13 +60,10 @@ func select_animation():
 func flip_sprite():
 	if velocity.x != 0:
 		animated_sprite_2d.flip_h = velocity.x < 0
-		ray_cast_2d.target_position.x = abs(ray_cast_2d.target_position.x)*(-2*int(velocity.x < 0) + 1)
 	animated_sprite_2d.flip_v = up_direction != Vector2.UP
 
 
 func _physics_process(delta: float) -> void:
-	wall_sliding = ray_cast_2d.is_colliding() and not is_on_floor()
-	
 	if not can_move:
 		update_x_velocity(0, delta)
 		apply_gravity(delta)
@@ -87,6 +83,8 @@ func _physics_process(delta: float) -> void:
 	update_coyote_timer()
 	update_dash_allowed()
 	move_and_slide()
+	wall_sliding = is_on_wall_only()
+	print(wall_sliding, '\t', velocity)
 
 
 func _input(event: InputEvent) -> void:
@@ -118,17 +116,12 @@ func update_x_velocity(direction: float, delta: float) -> void:
 
 
 func jump() -> void:
-	print("JUMPING")
-	print(jump_buffer_avalible, coyote_avalible)
-	print(wall_jump_buffer_avalible, wall_coyote_avalible)
 	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
-		print("  just the regular")
 	elif wall_sliding or wall_jump_buffer_avalible or wall_coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
-		print(get_wall_normal().x * wall_jump_out_force)
 		velocity.x = get_wall_normal().x * wall_jump_out_force
-		print("  off the wall!")
+		wall_sliding = false
 
 
 func dash() -> void:
@@ -161,17 +154,18 @@ func fall(delta: float) -> void:
 		velocity.y -= delta*gravity*fall_multiplier*up_direction.y
 
 
-# Returns true is wall slide is applied. Otherwise false
 func wall_slide(delta: float) -> void:
 	# Only slide if falling or player wants to
-	if velocity.y*up_direction.y < 0:
+	#if velocity.y*up_direction.y < 0:
 		if Input.get_axis("slide_down", "slide_up") == up_direction.y:
 			velocity.y -= delta*gravity*up_direction.y
 		else:
 			velocity.y -= delta*gravity*up_direction.y
 			velocity.y = clamp(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
-	else:
-		fall(delta)
+		
+		velocity.x = -get_wall_normal().x
+	#else:
+		#fall(delta)
 
 
 func update_jump_buffer() -> void:
