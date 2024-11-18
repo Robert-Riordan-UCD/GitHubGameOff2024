@@ -6,7 +6,7 @@ signal hit
 @export_category("Movement")
 @export var max_run_speed: float = 300
 @export var time_to_max_speed: float = 0.5
-@export var time_to_min_speed: float = 0.1
+@export var time_to_min_speed: float = 0.02
 
 @export_group("Dash")
 @export var dash_boost: float = 2
