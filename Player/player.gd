@@ -103,12 +103,10 @@ func update_x_velocity(direction: float, delta: float) -> void:
 	else:
 		if velocity.x > 0:
 			velocity.x -= max_run_speed * delta / time_to_min_speed
+			if velocity.x < 0: velocity.x = 0
 		elif velocity.x < 0:
 			velocity.x += max_run_speed * delta / time_to_min_speed
-	
-	# Prevent player wiggling around 0
-	if abs(velocity.x) < 40 and not (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
-		velocity.x = 0
+			if velocity.x > 0: velocity.x = 0
 	
 	if wall_sliding:
 		velocity.x = 0
