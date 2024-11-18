@@ -90,7 +90,7 @@ func _input(event: InputEvent) -> void:
 	if not can_move: return
 	if event.is_action_pressed("jump"):
 		jump()
-	elif event.is_action_pressed("flip_gravity"):
+	elif event.is_action_pressed("flip_gravity") and is_on_floor():
 		up_direction = -up_direction
 	elif event.is_action_pressed("dash"):
 		dash()
