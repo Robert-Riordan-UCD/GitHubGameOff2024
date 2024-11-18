@@ -14,7 +14,7 @@ signal hit
 
 @export_group("Jump")
 @export var gravity: float = 1000
-@export_range(0, 1) var air_control: float = 0.75
+@export_range(0, 1) var air_control: float = 1.0
 @export var coyote_time: float = 0.4
 @export var jump_buffer: float = 0.4
 @export var jump_height: float = 4.5
