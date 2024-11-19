@@ -97,7 +97,7 @@ func _input(event: InputEvent) -> void:
 		jump()
 	elif event.is_action_pressed("flip_gravity") and is_on_floor():
 		flip()
-	elif event.is_action_pressed("dash"):
+	elif event.is_action_pressed("dash") or event.is_action_pressed("dash_chord"):
 		dash()
 
 
@@ -128,6 +128,7 @@ func jump() -> void:
 
 func dash() -> void:
 	if dashing or not can_dash: return
+	if not (Input.is_action_pressed("dash") and Input.is_action_pressed("dash_chord")): return
 	var direction: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up","down"))
 	if direction != Vector2.ZERO:
 		velocity = dash_boost*direction*max_run_speed
