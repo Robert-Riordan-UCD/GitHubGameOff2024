@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=18 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Utils/camera.gd" id="4_fn0mj"]
 [ext_resource type="PackedScene" uid="uid://bforfy1gv6nau" path="res://Speedrunning/finish.tscn" id="5_kai3u"]
 [ext_resource type="PackedScene" uid="uid://bmojufbvd27jm" path="res://Speedrunning/speedrun_timer.tscn" id="5_sm15w"]
+[ext_resource type="Texture2D" uid="uid://5uywttbd630h" path="res://Assets/Hints/L_keycap.png" id="6_piw6h"]
+[ext_resource type="Texture2D" uid="uid://b3yxno0c8wvqx" path="res://Assets/Player/Player.png" id="7_0863q"]
 [ext_resource type="PackedScene" uid="uid://culdpijj5tkws" path="res://Speedrunning/leaderboard.tscn" id="7_g77eq"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
 
@@ -99,6 +101,26 @@ position = Vector2(-137, 4)
 [node name="Finish" parent="." instance=ExtResource("5_kai3u")]
 position = Vector2(-148, -956)
 scale = Vector2(0.68, 0.68)
+
+[node name="Hints" type="Node2D" parent="."]
+
+[node name="WallJump" type="Node2D" parent="Hints"]
+position = Vector2(1395, -738)
+
+[node name="LKeycap" type="Sprite2D" parent="Hints/WallJump"]
+self_modulate = Color(1, 1, 1, 0.476)
+position = Vector2(-7, -22)
+rotation = -0.178024
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("6_piw6h")
+
+[node name="Player" type="Sprite2D" parent="Hints/WallJump"]
+self_modulate = Color(1, 1, 1, 0.443)
+position = Vector2(11, -13)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_0863q")
+region_enabled = true
+region_rect = Rect2(14, 166, 33, 54.6266)
 
 [node name="Player" parent="." instance=ExtResource("2_qlywh")]
 position = Vector2(-151, -3)
