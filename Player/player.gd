@@ -11,6 +11,7 @@ signal hit
 @export_group("Dash")
 @export var dash_boost: float = 2
 @export var dash_time: float = 0.2
+@export var can_dash_through_wall: bool = true
 
 @export_group("Jump")
 @export var gravity: float = 1000
@@ -134,11 +135,13 @@ func dash() -> void:
 		velocity = dash_boost*direction*max_run_speed
 		dashing = true
 		can_dash = false
-		collision_shape_2d.disabled = true
+		if can_dash_through_wall:
+			collision_shape_2d.disabled = true
 		hurt_box_collision_shape_2d.disabled = true
 		await get_tree().create_timer(dash_time).timeout
 		hurt_box_collision_shape_2d.disabled = false
-		collision_shape_2d.disabled = false
+		if can_dash_through_wall:
+			collision_shape_2d.disabled = false
 		dashing = false
 
 
