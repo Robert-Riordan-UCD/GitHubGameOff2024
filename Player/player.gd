@@ -5,7 +5,7 @@ signal hit
 
 @export_category("Movement")
 @export var max_run_speed: float = 300
-@export var time_to_max_speed: float = 0.5
+@export var time_to_max_speed: float = 0.2
 @export var time_to_min_speed: float = 0.02
 
 @export_group("Dash")
@@ -23,6 +23,11 @@ signal hit
 @export_group("Wall slide")
 @export_range(0, 1) var max_wall_slide_speed: float = 25
 @export var wall_jump_out_force: float = 250
+
+@export_group("Inverting")
+@export var flip_buffer: float = 0.3
+
+@onready var first_flip_clicked: bool = false
 
 # Jump state variables
 @onready var coyote_avalible: bool = false
@@ -91,7 +96,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		jump()
 	elif event.is_action_pressed("flip_gravity") and is_on_floor():
-		up_direction = -up_direction
+		flip()
 	elif event.is_action_pressed("dash"):
 		dash()
 
@@ -134,6 +139,17 @@ func dash() -> void:
 		hurt_box_collision_shape_2d.disabled = false
 		collision_shape_2d.disabled = false
 		dashing = false
+
+
+func flip() -> void:
+	#first_flip_click = true
+	if first_flip_clicked:
+		up_direction = -up_direction
+		first_flip_clicked = false
+	else:
+		first_flip_clicked = true
+		await get_tree().create_timer(flip_buffer).timeout
+		first_flip_clicked = false
 
 
 func apply_gravity(delta: float) -> void:
