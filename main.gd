@@ -53,4 +53,4 @@ func _on_submit_score_submit(player_name: String) -> void:
 
 
 func _on_submit_score_skip() -> void:
-	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anon")
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anonymous") 

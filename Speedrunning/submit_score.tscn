@@ -52,7 +52,7 @@ text = "Submit"
 self_modulate = Color(3.784, 1, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Skip"
+text = "Anonymous"
 
 [connection signal="text_changed" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
