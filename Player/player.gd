@@ -22,7 +22,7 @@ signal hit
 
 @export_group("Wall slide")
 @export_range(0, 1) var max_wall_slide_speed: float = 25
-@export var wall_jump_out_force: float = 350
+@export var wall_jump_out_force: float = 250
 
 # Jump state variables
 @onready var coyote_avalible: bool = false
@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	update_coyote_timer()
 	update_dash_allowed()
 	move_and_slide()
-	wall_sliding = is_on_wall_only()
+	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
 
 
 func _input(event: InputEvent) -> void:
