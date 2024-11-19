@@ -47,10 +47,12 @@ signal hit
 @onready var can_move: bool = true
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _process(_delta: float) -> void:
 	select_animation()
 	flip_sprite()
+	update_audio()
 
 
 func select_animation():
@@ -61,6 +63,14 @@ func select_animation():
 	elif wall_sliding:		animated_sprite_2d.play("Wall Slide")
 	elif velocity.y < 0:	animated_sprite_2d.play("Jump")
 	else:					animated_sprite_2d.play("Falling")
+
+
+func update_audio() -> void:
+	if velocity.x != 0 and is_on_floor():
+		if not audio_stream_player_2d.playing:
+			audio_stream_player_2d.play()
+	elif audio_stream_player_2d.playing:
+		audio_stream_player_2d.stop()
 
 
 func flip_sprite():
