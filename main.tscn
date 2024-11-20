@@ -248,7 +248,7 @@ target = NodePath("../Player")
 position = Vector2(-140, 8)
 
 [node name="Finish" parent="." instance=ExtResource("5_kai3u")]
-position = Vector2(-148, -956)
+position = Vector2(-46, -0.00012207)
 scale = Vector2(0.68, 0.68)
 
 [node name="Hints" type="Node2D" parent="."]

@@ -1,6 +1,7 @@
 extends Control
 
 signal restart
+signal preload_complete
 
 @onready var loading: Label = $HBoxContainer/VBoxContainer/Loading
 @onready var leaderboard_table: GridContainer = $HBoxContainer/VBoxContainer/LeaderboardTable
@@ -8,18 +9,41 @@ signal restart
 const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
+var top_ten: Array
+
+@onready var preloading: bool = false
+@onready var preloaded: bool = false
+
+
+func preload_leaderboard() -> void:
+	preloading = true
+	clear_leader_board()
+	await fetech_top_ten()
+	preloaded = true
+	preload_complete.emit()
+	preloading = false
+
 
 func display_leaderboard(new_time: float, player_name: String) -> void:
 	button.grab_focus()
-	clear_leader_board()
 	visible = true
 	players_score = new_time
 	var score_id: String = await submit_score(new_time, player_name)
-	await display_top_ten(score_id)
-	insert_buffer()
+	if preloaded:
+		pass
+	elif preloading and not preloaded:
+		await preload_complete
+	elif not preloading:
+		await preload_leaderboard()
+	var player_in_top_ten: bool = update_top_ten(new_time, player_name)
+	display_top_ten()
 	leaderboard_table.visible = true
-	await display_player_score(score_id, player_name)
+	if not player_in_top_ten:
+		insert_buffer()
+		await display_player_score(score_id, player_name)
 	loading.visible = false
+	preloading = false
+	preloaded = false
 
 
 func hide_leader_board() -> void:
@@ -40,13 +64,30 @@ func submit_score(new_time: float, player_name: String) -> String:
 	return sw_result.score_id
 
 
-# TODO: Handle error result
-func display_top_ten(new_score_id) -> void:
+func fetech_top_ten() -> void:
 	var sw_result: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
 	var scores = sw_result.scores
-	var rank: int = 1
+	top_ten.clear()
 	for score in scores:
-		append_score(rank, score.player_name, -score.score, score.score_id == new_score_id)
+		top_ten.append(Score.new(score.player_name, -score.score))
+
+
+# Return true if the player is in the top ten
+func update_top_ten(score, name) -> bool:
+	var player_position: int = 0
+	for player in top_ten:
+		if score < player.score: break
+		player_position += 1
+	if player_position >= 9: return false
+	top_ten.insert(player_position, Score.new(name, score, true))
+	return true
+
+
+# TODO: Handle error result
+func display_top_ten() -> void:
+	var rank: int = 1
+	for score: Score in top_ten:
+		append_score(rank, score.player_name, score.score, score.is_user)
 		rank += 1
 
 

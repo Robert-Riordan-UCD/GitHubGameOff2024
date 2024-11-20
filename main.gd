@@ -30,6 +30,7 @@ func reset() -> void:
 
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
+	leaderboard.preload_leaderboard()
 	submit_score.display(speedrun_timer.get_run_time())
 	player.finished()
 
