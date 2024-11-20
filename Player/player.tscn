@@ -1,12 +1,25 @@
-[gd_scene load_steps=19 format=3 uid="uid://n6paswmcoc2x"]
+[gd_scene load_steps=23 format=3 uid="uid://n6paswmcoc2x"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_qsck6"]
 [ext_resource type="Texture2D" uid="uid://b3yxno0c8wvqx" path="res://Assets/Player/Player.png" id="2_gpn6y"]
+[ext_resource type="Texture2D" uid="uid://c8xux6aso2aio" path="res://Assets/Player/Death.png" id="3_qp13d"]
 [ext_resource type="AudioStream" uid="uid://c0tcdloegg4hk" path="res://Assets/Audio/running.mp3" id="3_yew4h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqvu8"]
 atlas = ExtResource("2_gpn6y")
 region = Rect2(0, 225, 75, 75)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_456a7"]
+atlas = ExtResource("3_qp13d")
+region = Rect2(0, 0, 73, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4fbh"]
+atlas = ExtResource("3_qp13d")
+region = Rect2(73, 0, 73, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0dpc"]
+atlas = ExtResource("3_qp13d")
+region = Rect2(146, 0, 73, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lc36e"]
 atlas = ExtResource("2_gpn6y")
@@ -60,6 +73,20 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_456a7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4fbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0dpc")
+}],
+"loop": false,
+"name": &"Death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -135,7 +162,7 @@ can_dash_through_wall = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m0mup")
-animation = &"Falling"
+animation = &"Death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)

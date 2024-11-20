@@ -45,6 +45,7 @@ signal hit
 @onready var hurt_box_collision_shape_2d: CollisionShape2D = $HurtBox/CollisionShape2D
 
 @onready var can_move: bool = true
+@onready var dead: bool = false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -56,6 +57,7 @@ func _process(_delta: float) -> void:
 
 
 func select_animation():
+	if dead: return
 	if dashing:				animated_sprite_2d.play("Dash")
 	elif is_on_floor():
 		if velocity.x == 0:	animated_sprite_2d.play("Idle")
@@ -236,13 +238,22 @@ func update_dash_allowed() -> void:
 		can_dash = true
 
 
-func lock_control():
+func finished() -> void:
 	can_move = false
 
 
-func unlock_control():
+func reset(start_position: Vector2) -> void:
+	global_position = start_position
+	velocity = Vector2.ZERO
 	can_move = true
+	dead = false
 
 
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
+	can_move = false
+	animated_sprite_2d.play("Death")
+	dead = true
+	await animated_sprite_2d.animation_finished
+	await get_tree().create_timer(0.5).timeout
 	hit.emit()
+	

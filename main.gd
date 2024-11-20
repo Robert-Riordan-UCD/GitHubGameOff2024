@@ -22,9 +22,7 @@ func _on_player_hit() -> void:
 
 
 func reset() -> void:
-	player.global_position = player_start.global_position
-	player.velocity = Vector2.ZERO
-	player.unlock_control()
+	player.reset(player_start.global_position)
 	finish.finished = false
 	speedrun_timer.reset_timer()
 	leaderboard.hide_leader_board()
@@ -33,7 +31,7 @@ func reset() -> void:
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
 	submit_score.display(speedrun_timer.get_run_time())
-	player.lock_control()
+	player.finished()
 
 
 func _on_leaderboard_restart() -> void:
