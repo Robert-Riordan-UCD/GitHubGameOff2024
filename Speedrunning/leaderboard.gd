@@ -73,13 +73,13 @@ func fetech_top_ten() -> void:
 
 
 # Return true if the player is in the top ten
-func update_top_ten(score, name) -> bool:
+func update_top_ten(score, player_name) -> bool:
 	var player_position: int = 0
 	for player in top_ten:
 		if score < player.score: break
 		player_position += 1
 	if player_position >= 9: return false
-	top_ten.insert(player_position, Score.new(name, score, true))
+	top_ten.insert(player_position, Score.new(player_name, score, true))
 	return true
 
 
