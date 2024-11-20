@@ -8,7 +8,7 @@ extends Node2D
 @onready var finish: Node2D = $Finish
 
 func _ready() -> void:
-	leaderboard.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	reset()
 
 
