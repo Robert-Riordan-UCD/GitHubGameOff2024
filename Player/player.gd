@@ -253,6 +253,7 @@ func _on_hurt_box_body_entered(_body: Node2D) -> void:
 	can_move = false
 	animated_sprite_2d.play("Death")
 	dead = true
+	Input.start_joy_vibration(0, 1, 0.5, 0.3)
 	await animated_sprite_2d.animation_finished
 	await get_tree().create_timer(0.5).timeout
 	hit.emit()
