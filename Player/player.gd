@@ -48,9 +48,11 @@ signal hit
 @onready var dead: bool = false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 @onready var running_sound: AudioStreamPlayer2D = $Audio/RunningSound
 @onready var sliding_sound: AudioStreamPlayer2D = $Audio/SlidingSound
 @onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
+@onready var dead_sound: AudioStreamPlayer2D = $Audio/DeadSound
 
 
 func _process(_delta: float) -> void:
@@ -262,6 +264,7 @@ func reset(start_position: Vector2) -> void:
 
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
 	can_move = false
+	dead_sound.play()
 	animated_sprite_2d.play("Death")
 	dead = true
 	Input.start_joy_vibration(0, 1, 0.5, 0.3)
