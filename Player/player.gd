@@ -173,7 +173,6 @@ func dash() -> void:
 
 
 func flip() -> void:
-	#first_flip_click = true
 	if first_flip_clicked:
 		up_direction = -up_direction
 		first_flip_clicked = false
@@ -275,6 +274,7 @@ func reset(start_position: Vector2) -> void:
 	velocity = Vector2.ZERO
 	can_move = true
 	dead = false
+	up_direction = Vector2.UP
 
 
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
