@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=24 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -15,6 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
+
+[sub_resource type="Gradient" id="Gradient_8fvpw"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.784558, 0.784558, 0.784558, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3kbts"]
+gradient = SubResource("Gradient_8fvpw")
+width = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v08cb"]
 resource_name = "Main"
@@ -84,6 +92,11 @@ sources/0 = SubResource("TileSetAtlasSource_yoyvv")
 script = ExtResource("1_xxvb3")
 
 [node name="Background" type="Node2D" parent="."]
+
+[node name="OffWhite" type="Sprite2D" parent="Background"]
+position = Vector2(1036.5, -437.5)
+scale = Vector2(3745, 2165)
+texture = SubResource("GradientTexture1D_3kbts")
 
 [node name="Page" type="Sprite2D" parent="Background"]
 position = Vector2(-161, -1019.5)
