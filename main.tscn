@@ -400,7 +400,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Press R to restart"
+text = "Press R/select to restart"
 
 [connection signal="player_not_started" from="PlayerStart" to="." method="_on_player_start_player_not_started"]
 [connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]
