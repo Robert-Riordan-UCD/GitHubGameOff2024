@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://c83lye1vdf3on"]
+
+[ext_resource type="Script" path="res://Utils/leaderboard_managment.gd" id="1_td77c"]
+
+[node name="LeaderboardManagment" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_td77c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -21.5
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Download" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Download"
+
+[node name="Clear" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Clear"
+
+[connection signal="pressed" from="VBoxContainer/Download" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="VBoxContainer/Clear" to="." method="_on_clear_pressed"]

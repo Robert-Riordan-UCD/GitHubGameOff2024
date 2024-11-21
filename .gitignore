@@ -12,6 +12,7 @@ builds/*
 
 # Secret files
 api_keys.json
+Speedrunning/LeaderboardBackups
 
 # Proprietary files
 addons/silent_wolf
