@@ -31,6 +31,10 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://Assets/Fonts/painting-with-chocolate.regular.ttf"
+
 [input]
 
 ui_accept={
