@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://n6paswmcoc2x"]
+[gd_scene load_steps=25 format=3 uid="uid://n6paswmcoc2x"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_qsck6"]
 [ext_resource type="Texture2D" uid="uid://b3yxno0c8wvqx" path="res://Assets/Player/Player.png" id="2_gpn6y"]
 [ext_resource type="Texture2D" uid="uid://c8xux6aso2aio" path="res://Assets/Player/Death.png" id="3_qp13d"]
 [ext_resource type="AudioStream" uid="uid://c0tcdloegg4hk" path="res://Assets/Audio/running.mp3" id="3_yew4h"]
 [ext_resource type="AudioStream" uid="uid://gr7jr4n83o8s" path="res://Assets/Audio/slide.mp3" id="5_xvgmb"]
+[ext_resource type="AudioStream" uid="uid://cppl6reaqh1g" path="res://Assets/Audio/jump.mp3" id="6_yg1ew"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqvu8"]
 atlas = ExtResource("2_gpn6y")
@@ -182,7 +183,7 @@ debug_color = Color(0.971313, 0, 0.448807, 0.42)
 
 [node name="RunningSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("3_yew4h")
-volume_db = -13.277
+volume_db = -12.0
 pitch_scale = 0.77
 autoplay = true
 parameters/looping = true
@@ -193,5 +194,9 @@ volume_db = -13.277
 pitch_scale = 0.77
 autoplay = true
 parameters/looping = true
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("6_yg1ew")
+volume_db = -12.0
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

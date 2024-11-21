@@ -50,6 +50,7 @@ signal hit
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var running_sound: AudioStreamPlayer2D = $Audio/RunningSound
 @onready var sliding_sound: AudioStreamPlayer2D = $Audio/SlidingSound
+@onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
 
 
 func _process(_delta: float) -> void:
@@ -141,10 +142,12 @@ func update_x_velocity(direction: float, delta: float) -> void:
 func jump() -> void:
 	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
+		jump_sound.play()
 	elif wall_sliding or wall_jump_buffer_avalible or wall_coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		velocity.x = get_wall_normal().x * wall_jump_out_force
 		wall_sliding = false
+		jump_sound.play()
 
 
 func dash() -> void:
