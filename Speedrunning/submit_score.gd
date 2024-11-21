@@ -8,6 +8,7 @@ signal skip
 
 
 func display(new_time: float) -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	time.text = str(new_time) + ' s'
 	visible = true
 	line_edit.grab_focus()

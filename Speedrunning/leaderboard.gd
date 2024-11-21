@@ -25,6 +25,7 @@ func preload_leaderboard() -> void:
 
 
 func display_leaderboard(new_time: float, player_name: String) -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	button.grab_focus()
 	visible = true
 	players_score = new_time
@@ -50,6 +51,7 @@ func hide_leader_board() -> void:
 	loading.visible = true
 	leaderboard_table.visible = false
 	visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func clear_leader_board() -> void:
