@@ -145,11 +145,13 @@ func jump() -> void:
 	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		jump_sound.play()
+		clear_jump_buffers()
 	elif wall_sliding or wall_jump_buffer_avalible or wall_coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		velocity.x = get_wall_normal().x * wall_jump_out_force
 		wall_sliding = false
 		jump_sound.play()
+		clear_jump_buffers()
 
 
 func dash() -> void:
@@ -175,6 +177,7 @@ func flip() -> void:
 	if first_flip_clicked:
 		up_direction = -up_direction
 		first_flip_clicked = false
+		clear_jump_buffers()
 	else:
 		first_flip_clicked = true
 		await get_tree().create_timer(flip_buffer).timeout
@@ -232,10 +235,12 @@ func update_wall_jump_buffer() -> void:
 
 func update_coyote_timer() -> void:
 	if coyote_was_on_floor and not is_on_floor():
+		coyote_was_on_floor = false
 		coyote_avalible = true
 		await get_tree().create_timer(coyote_time).timeout
 		coyote_avalible = false
-	coyote_was_on_floor = is_on_floor()
+	else:
+		coyote_was_on_floor = is_on_floor()
 
 
 func update_wall_coyote_timer() -> void:
@@ -249,6 +254,16 @@ func update_wall_coyote_timer() -> void:
 func update_dash_allowed() -> void:
 	if is_on_floor():
 		can_dash = true
+
+
+func clear_jump_buffers() -> void:
+	await get_tree().create_timer(0.01).timeout # Need to wait until physics update happens so player has jumped and was_on vars don't get overwritten
+	jump_buffer_avalible = false
+	coyote_avalible = false
+	wall_jump_buffer_avalible = false
+	wall_coyote_avalible = false
+	coyote_was_on_floor = false
+	coyote_was_on_wall = false
 
 
 func finished() -> void:
