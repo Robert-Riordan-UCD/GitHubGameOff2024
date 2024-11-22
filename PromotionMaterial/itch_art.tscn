@@ -223,6 +223,7 @@ animations = [{
 [node name="ItchArt" type="Node2D"]
 
 [node name="CoverImage" type="Node2D" parent="."]
+position = Vector2(-110, 133)
 
 [node name="Background" type="Node2D" parent="CoverImage"]
 position = Vector2(100.484, 462.614)
@@ -388,7 +389,8 @@ tile_map_data = PackedByteArray("AAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAHAPv/AAAAAAA
 tile_set = SubResource("TileSet_7khnb")
 
 [node name="Player" type="AnimatedSprite2D" parent="."]
-position = Vector2(358, 192)
+position = Vector2(344, 141)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_ydid2")
-animation = &"Death"
+animation = &"Jump"
+frame = 3
