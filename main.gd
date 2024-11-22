@@ -24,7 +24,7 @@ func _on_player_hit() -> void:
 func reset() -> void:
 	player.reset(player_start.global_position)
 	finish.finished = false
-	speedrun_timer.reset_timer()
+	speedrun_timer.stop_timer()
 	leaderboard.hide_leader_board()
 
 
