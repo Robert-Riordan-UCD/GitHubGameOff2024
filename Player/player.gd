@@ -110,7 +110,9 @@ func _physics_process(delta: float) -> void:
 	
 	apply_gravity(delta)
 	update_jump_buffer()
+	update_wall_jump_buffer()
 	update_coyote_timer()
+	update_wall_coyote_timer()
 	update_dash_allowed()
 	move_and_slide()
 	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
