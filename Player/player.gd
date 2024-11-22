@@ -26,29 +26,34 @@ signal hit
 @export var wall_jump_out_force: float = 250
 
 @export_group("Inverting")
-@export var flip_buffer: float = 0.3
+@export var flip_double_click_timer: float = 0.3
 
-@onready var first_flip_clicked: bool = false
-
-# Jump state variables
+# Jump buffers and coyote timers
+@onready var jump_buffer_avalible: bool = false
 @onready var coyote_avalible: bool = false
 @onready var coyote_was_on_floor: bool = false
-@onready var jump_buffer_avalible: bool = false
+
 @onready var wall_jump_buffer_avalible: bool = false
 @onready var wall_coyote_avalible: bool = false
 @onready var coyote_was_on_wall: bool = false
 
+@onready var flip_buffer: int = 0
+@onready var flip_coyote_avalible: bool = 0
+@onready var flip_coyote_was_on_surface: bool = false
+
+# Player state
 @onready var dashing: bool = false
 @onready var wall_sliding: bool = false
 @onready var can_dash: bool = false
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var hurt_box_collision_shape_2d: CollisionShape2D = $HurtBox/CollisionShape2D
-
 @onready var can_move: bool = true
 @onready var dead: bool = false
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+# Colliders
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var hurt_box_collision_shape_2d: CollisionShape2D = $HurtBox/CollisionShape2D
 
+# Animation and audio
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var running_sound: AudioStreamPlayer2D = $Audio/RunningSound
 @onready var sliding_sound: AudioStreamPlayer2D = $Audio/SlidingSound
 @onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
@@ -113,7 +118,9 @@ func _physics_process(delta: float) -> void:
 	update_wall_jump_buffer()
 	update_coyote_timer()
 	update_wall_coyote_timer()
+	update_invert_coyote_timer()
 	update_dash_allowed()
+	try_flip()
 	move_and_slide()
 	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
 
@@ -122,8 +129,8 @@ func _input(event: InputEvent) -> void:
 	if not can_move: return
 	if event.is_action_pressed("jump"):
 		jump()
-	elif event.is_action_pressed("flip_gravity") and is_on_floor():
-		flip()
+	elif event.is_action_pressed("flip_gravity"):
+		flip_input()
 	elif event.is_action_pressed("dash") or event.is_action_pressed("dash_chord"):
 		dash()
 
@@ -175,16 +182,25 @@ func dash() -> void:
 		dashing = false
 
 
+func flip_input() -> void:
+	flip_buffer = min(2, flip_buffer+1)
+	await  get_tree().create_timer(flip_double_click_timer).timeout
+	flip_buffer = max(0, flip_buffer-1)
+
+
+func try_flip() -> void:
+	if flip_buffer >= 2 and (is_on_floor() or is_on_wall() or flip_coyote_avalible):
+		flip()
+
+
 func flip() -> void:
-	if first_flip_clicked:
-		up_direction = -up_direction
-		first_flip_clicked = false
-		clear_jump_buffers()
-		flip_sound.play()
-	else:
-		first_flip_clicked = true
-		await get_tree().create_timer(flip_buffer).timeout
-		first_flip_clicked = false
+	up_direction = -up_direction
+	flip_sound.play()
+	
+	clear_jump_buffers()
+	flip_buffer = 0
+	flip_coyote_avalible = false
+	flip_coyote_was_on_surface = false
 
 
 func apply_gravity(delta: float) -> void:
@@ -254,6 +270,16 @@ func update_wall_coyote_timer() -> void:
 	coyote_was_on_wall = is_on_wall_only()
 
 
+func update_invert_coyote_timer() -> void:
+	if flip_coyote_was_on_surface and not (is_on_floor() or is_on_wall()):
+		flip_coyote_was_on_surface = false
+		flip_coyote_avalible = true
+		await get_tree().create_timer(coyote_time).timeout
+		flip_coyote_avalible = false
+	else:
+		flip_coyote_was_on_surface = is_on_floor() or is_on_wall()
+
+
 func update_dash_allowed() -> void:
 	if is_on_floor():
 		can_dash = true
@@ -263,9 +289,10 @@ func clear_jump_buffers() -> void:
 	await get_tree().create_timer(0.01).timeout # Need to wait until physics update happens so player has jumped and was_on vars don't get overwritten
 	jump_buffer_avalible = false
 	coyote_avalible = false
+	coyote_was_on_floor = false
+	
 	wall_jump_buffer_avalible = false
 	wall_coyote_avalible = false
-	coyote_was_on_floor = false
 	coyote_was_on_wall = false
 
 
