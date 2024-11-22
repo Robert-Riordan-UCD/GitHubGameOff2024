@@ -53,6 +53,7 @@ signal hit
 @onready var sliding_sound: AudioStreamPlayer2D = $Audio/SlidingSound
 @onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
 @onready var dead_sound: AudioStreamPlayer2D = $Audio/DeadSound
+@onready var flip_sound: AudioStreamPlayer2D = $Audio/FlipSound
 
 
 func _process(_delta: float) -> void:
@@ -177,6 +178,7 @@ func flip() -> void:
 		up_direction = -up_direction
 		first_flip_clicked = false
 		clear_jump_buffers()
+		flip_sound.play()
 	else:
 		first_flip_clicked = true
 		await get_tree().create_timer(flip_buffer).timeout

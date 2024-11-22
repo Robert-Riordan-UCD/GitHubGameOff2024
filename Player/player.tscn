@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://n6paswmcoc2x"]
+[gd_scene load_steps=27 format=3 uid="uid://n6paswmcoc2x"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_qsck6"]
 [ext_resource type="Texture2D" uid="uid://b3yxno0c8wvqx" path="res://Assets/Player/Player.png" id="2_gpn6y"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://gr7jr4n83o8s" path="res://Assets/Audio/slide.mp3" id="5_xvgmb"]
 [ext_resource type="AudioStream" uid="uid://cppl6reaqh1g" path="res://Assets/Audio/jump.mp3" id="6_yg1ew"]
 [ext_resource type="AudioStream" uid="uid://to1ubarm80ib" path="res://Assets/Audio/die.mp3" id="7_hrip3"]
+[ext_resource type="AudioStream" uid="uid://brvg2d0nup5sm" path="res://Assets/Audio/flip.mp3" id="8_duwqt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqvu8"]
 atlas = ExtResource("2_gpn6y")
@@ -203,5 +204,9 @@ volume_db = -12.0
 [node name="DeadSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("7_hrip3")
 volume_db = -12.0
+
+[node name="FlipSound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("8_duwqt")
+volume_db = -18.638
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
