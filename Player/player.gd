@@ -246,7 +246,7 @@ func update_wall_jump_buffer() -> void:
 	if is_on_floor():
 		wall_jump_buffer_avalible = false
 		return
-	if not is_on_wall_only() and Input.is_action_just_pressed("jump"):
+	if not is_on_wall_only() and Input.is_action_pressed("latch") and Input.is_action_just_pressed("jump"):
 		wall_jump_buffer_avalible = true
 		await get_tree().create_timer(jump_buffer).timeout
 		wall_jump_buffer_avalible = false
@@ -267,7 +267,7 @@ func update_wall_coyote_timer() -> void:
 		wall_coyote_avalible = true
 		await get_tree().create_timer(coyote_time).timeout
 		wall_coyote_avalible = false
-	coyote_was_on_wall = is_on_wall_only()
+	coyote_was_on_wall = is_on_wall_only() and Input.is_action_pressed("latch")
 
 
 func update_invert_coyote_timer() -> void:
