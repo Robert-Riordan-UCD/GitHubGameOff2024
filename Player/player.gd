@@ -120,6 +120,7 @@ func _physics_process(delta: float) -> void:
 	update_wall_coyote_timer()
 	update_invert_coyote_timer()
 	update_dash_allowed()
+	try_jump()
 	try_flip()
 	move_and_slide()
 	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
@@ -152,11 +153,11 @@ func update_x_velocity(direction: float, delta: float) -> void:
 
 
 func jump() -> void:
-	if is_on_floor() or jump_buffer_avalible or coyote_avalible:
+	if is_on_floor() or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		jump_sound.play()
 		clear_jump_buffers()
-	elif wall_sliding or wall_jump_buffer_avalible or wall_coyote_avalible:
+	elif wall_sliding or wall_coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
 		velocity.x = get_wall_normal().x * wall_jump_out_force
 		wall_sliding = false
@@ -186,6 +187,13 @@ func flip_input() -> void:
 	flip_buffer = min(2, flip_buffer+1)
 	await  get_tree().create_timer(flip_double_click_timer).timeout
 	flip_buffer = max(0, flip_buffer-1)
+
+
+func try_jump() -> void:
+	if jump_buffer_avalible and is_on_floor():
+		jump()
+	elif wall_jump_buffer_avalible and is_on_wall():
+		jump()
 
 
 func try_flip() -> void:
