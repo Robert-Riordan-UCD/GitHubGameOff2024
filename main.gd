@@ -26,6 +26,7 @@ func reset() -> void:
 	finish.finished = false
 	speedrun_timer.stop_timer()
 	leaderboard.hide_leader_board()
+	submit_score.visible = false
 
 
 func _on_finish_player_reached_finish() -> void:
