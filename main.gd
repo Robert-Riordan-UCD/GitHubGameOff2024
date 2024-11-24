@@ -37,7 +37,7 @@ func reset() -> void:
 
 func _on_finish_player_reached_finish() -> void:
 	speedrun_timer.stop_timer()
-	leaderboard.preload_leaderboard()
+	leaderboard.preload_leaderboard(trophy_count)
 	submit_score.display(speedrun_timer.get_run_time())
 	player.finished()
 
@@ -56,13 +56,13 @@ func _on_player_start_player_not_started() -> void:
 
 
 func _on_submit_score_submit(player_name: String) -> void:
-	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), player_name)
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), player_name, trophy_count)
 
 
 func _on_submit_score_skip() -> void:
-	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anonymous") 
+	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anonymous", trophy_count)
 
 
 func _on_trophy_collected() -> void:
 	trophy_count += 1
-	print("Trophies collected: " + str(trophy_count))
+	trophy_count = clamp(trophy_count, 0, 3)

@@ -10,12 +10,14 @@ const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
 var top_ten: Array
+var current_leaderboard: int
 
 @onready var preloading: bool = false
 @onready var preloaded: bool = false
 
 
-func preload_leaderboard() -> void:
+func preload_leaderboard(trophy_count: int) -> void:
+	current_leaderboard = trophy_count
 	preloading = true
 	clear_leader_board()
 	await fetech_top_ten()
@@ -24,24 +26,35 @@ func preload_leaderboard() -> void:
 	preloading = false
 
 
-func display_leaderboard(new_time: float, player_name: String) -> void:
+func display_leaderboard(new_time: float, player_name: String, trophy_count: int) -> void:
+	players_score = new_time
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	button.grab_focus()
+	
 	visible = true
-	players_score = new_time
-	var score_id: String = await submit_score(new_time, player_name)
+	
+	if current_leaderboard != trophy_count: # Any preloaded leaderboard is for the wrong trophy count
+		current_leaderboard = trophy_count
+		preloaded = false
+		preloading = false
+	
 	if preloaded:
 		pass
 	elif preloading and not preloaded:
 		await preload_complete
 	elif not preloading:
-		await preload_leaderboard()
+		await preload_leaderboard(current_leaderboard)
+	
+	var score_id: String = await submit_score(new_time, player_name)
 	var player_in_top_ten: bool = update_top_ten(new_time, player_name)
 	display_top_ten()
 	leaderboard_table.visible = true
+	
 	if not player_in_top_ten:
 		insert_buffer()
 		await display_player_score(score_id, player_name)
+	
 	loading.visible = false
 	preloading = false
 	preloaded = false
@@ -62,12 +75,12 @@ func clear_leader_board() -> void:
 
 # TODO: Handle error result
 func submit_score(new_time: float, player_name: String) -> String:
-	var sw_result: Dictionary = await SilentWolf.Scores.save_score(player_name, -new_time).sw_save_score_complete
+	var sw_result: Dictionary = await SilentWolf.Scores.save_score(player_name, -new_time, str(current_leaderboard)).sw_save_score_complete
 	return sw_result.score_id
 
 
 func fetech_top_ten() -> void:
-	var sw_result: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
+	var sw_result: Dictionary = await SilentWolf.Scores.get_scores(10, str(current_leaderboard)).sw_get_scores_complete
 	var scores = sw_result.scores
 	top_ten.clear()
 	for score in scores:
@@ -94,7 +107,7 @@ func display_top_ten() -> void:
 
 
 func display_player_score(score_id: String, player_name: String) -> void:
-	var sw_result = await SilentWolf.Scores.get_scores_around(score_id, 1).sw_get_scores_around_complete
+	var sw_result = await SilentWolf.Scores.get_scores_around(score_id, 1, str(current_leaderboard)).sw_get_scores_around_complete
 	# Score above
 	if sw_result.scores_above.size() == 0: return # Player is first :D
 	var above = sw_result.scores_above[0]
