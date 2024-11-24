@@ -8,6 +8,8 @@ extends Node2D
 @onready var finish: Node2D = $Finish
 @onready var trophies: Node2D = $Trophies
 
+@onready var trophy_count: int = 0
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	reset()
@@ -30,6 +32,7 @@ func reset() -> void:
 	submit_score.visible = false
 	for t in trophies.get_children():
 		t.reset()
+	trophy_count = 0
 
 
 func _on_finish_player_reached_finish() -> void:
@@ -61,4 +64,5 @@ func _on_submit_score_skip() -> void:
 
 
 func _on_trophy_collected() -> void:
-	print("Trophy collected")
+	trophy_count += 1
+	print("Trophies collected: " + str(trophy_count))

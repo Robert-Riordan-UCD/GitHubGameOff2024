@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://c400vwrumptxa" path="res://Assets/Hints/Controller_hints.png" id="8_ys5lt"]
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
-[ext_resource type="Script" path="res://Speedrunning/Trophy/trophy_manager.gd" id="13_23lx0"]
 [ext_resource type="PackedScene" uid="uid://u2j53ch2svph" path="res://Speedrunning/Trophy/trophy.tscn" id="13_hivip"]
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
 
@@ -89,6 +88,20 @@ tile_size = Vector2i(26, 26)
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_fggao")
+
+[sub_resource type="GDScript" id="GDScript_m2ele"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xxvb3")
@@ -374,9 +387,17 @@ scale = Vector2(0.75, 0.75)
 
 [node name="Trophies" type="Node2D" parent="."]
 position = Vector2(1039, -166)
-script = ExtResource("13_23lx0")
+script = SubResource("GDScript_m2ele")
 
 [node name="Trophy" parent="Trophies" instance=ExtResource("13_hivip")]
+position = Vector2(3, -1)
+
+[node name="Trophy2" parent="Trophies" instance=ExtResource("13_hivip")]
+position = Vector2(1064, -704)
+rotation = 3.14159
+
+[node name="Trophy3" parent="Trophies" instance=ExtResource("13_hivip")]
+position = Vector2(-946, -445)
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -415,6 +436,8 @@ text = "Press R/select to restart"
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="collected" from="Trophies/Trophy" to="." method="_on_trophy_collected"]
+[connection signal="collected" from="Trophies/Trophy2" to="." method="_on_trophy_collected"]
+[connection signal="collected" from="Trophies/Trophy3" to="." method="_on_trophy_collected"]
 [connection signal="restart" from="GUI/MarginContainer/Leaderboard" to="." method="_on_leaderboard_restart"]
 [connection signal="skip" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_skip"]
 [connection signal="submit" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_submit"]
