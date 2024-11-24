@@ -242,8 +242,9 @@ func flip_input() -> void:
 func wall_slide(delta: float) -> void:
 	# Only slide if falling or player wants to
 	if velocity.y*up_direction.y < 0:
-		if Input.get_axis("slide_down", "slide_up") == up_direction.y:
-			velocity.y -= delta*gravity*up_direction.y
+		var slide_speed: float = Input.get_axis("slide_down", "slide_up")
+		if round(slide_speed/abs(slide_speed)) == up_direction.y:
+			velocity.y -= delta*gravity*up_direction.y*sqrt(abs(slide_speed))
 		else:
 			velocity.y -= delta*gravity*up_direction.y
 			velocity.y = clamp(velocity.y, -max_wall_slide_speed, max_wall_slide_speed)
