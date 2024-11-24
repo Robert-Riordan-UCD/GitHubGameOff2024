@@ -6,6 +6,7 @@ signal preload_complete
 @onready var loading: Label = $HBoxContainer/VBoxContainer/Loading
 @onready var leaderboard_table: GridContainer = $HBoxContainer/VBoxContainer/LeaderboardTable
 @onready var button: Button = $HBoxContainer/VBoxContainer/Button
+@onready var trophies_collected: Label = $HBoxContainer/VBoxContainer/Trophy/TrophiesCollected
 const LEADER_BOARD_LABEL = preload("res://Speedrunning/leader_board_label.tscn")
 
 var players_score: float
@@ -34,6 +35,7 @@ func display_leaderboard(new_time: float, player_name: String, trophy_count: int
 	
 	visible = true
 	
+	trophies_collected.text = str(trophy_count)
 	if current_leaderboard != trophy_count: # Any preloaded leaderboard is for the wrong trophy count
 		current_leaderboard = trophy_count
 		preloaded = false

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://culdpijj5tkws"]
+[gd_scene load_steps=4 format=3 uid="uid://culdpijj5tkws"]
 
 [ext_resource type="Script" path="res://Speedrunning/leaderboard.gd" id="1_pfmj8"]
 [ext_resource type="PackedScene" uid="uid://bofxu2xh6p7xd" path="res://Speedrunning/leader_board_label.tscn" id="2_7be7q"]
+[ext_resource type="Texture2D" uid="uid://epurlf3et47s" path="res://Assets/Trophies/Trophy.png" id="2_q73yk"]
 
 [node name="Leaderboard" type="Control"]
 layout_mode = 3
@@ -29,6 +30,30 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="Trophy" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TrophyIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/Trophy"]
+layout_mode = 2
+texture = ExtResource("2_q73yk")
+expand_mode = 2
+
+[node name="TrophiesCollected" type="Label" parent="HBoxContainer/VBoxContainer/Trophy"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+
+[node name="TrophyText" type="Label" parent="HBoxContainer/VBoxContainer/Trophy"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "/3"
 horizontal_alignment = 1
 
 [node name="LeaderboardTable" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
