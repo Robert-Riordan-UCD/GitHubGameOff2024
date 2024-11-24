@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=26 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://c400vwrumptxa" path="res://Assets/Hints/Controller_hints.png" id="8_ys5lt"]
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
+[ext_resource type="Script" path="res://Speedrunning/Trophy/trophy_manager.gd" id="13_23lx0"]
+[ext_resource type="PackedScene" uid="uid://u2j53ch2svph" path="res://Speedrunning/Trophy/trophy.tscn" id="13_hivip"]
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
 
 [sub_resource type="Gradient" id="Gradient_acngi"]
@@ -370,6 +372,12 @@ region_rect = Rect2(4.84888, 246.417, 66.867, 50.3381)
 position = Vector2(-140, 8)
 scale = Vector2(0.75, 0.75)
 
+[node name="Trophies" type="Node2D" parent="."]
+position = Vector2(1039, -166)
+script = ExtResource("13_23lx0")
+
+[node name="Trophy" parent="Trophies" instance=ExtResource("13_hivip")]
+
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
@@ -406,6 +414,7 @@ text = "Press R/select to restart"
 [connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="collected" from="Trophies/Trophy" to="." method="_on_trophy_collected"]
 [connection signal="restart" from="GUI/MarginContainer/Leaderboard" to="." method="_on_leaderboard_restart"]
 [connection signal="skip" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_skip"]
 [connection signal="submit" from="GUI/MarginContainer/SubmitScore" to="." method="_on_submit_score_submit"]

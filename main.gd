@@ -6,6 +6,7 @@ extends Node2D
 @onready var leaderboard: Control = $GUI/MarginContainer/Leaderboard
 @onready var submit_score: Control = $GUI/MarginContainer/SubmitScore
 @onready var finish: Node2D = $Finish
+@onready var trophies: Node2D = $Trophies
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -27,6 +28,8 @@ func reset() -> void:
 	speedrun_timer.stop_timer()
 	leaderboard.hide_leader_board()
 	submit_score.visible = false
+	for t in trophies.get_children():
+		t.reset()
 
 
 func _on_finish_player_reached_finish() -> void:
@@ -55,3 +58,7 @@ func _on_submit_score_submit(player_name: String) -> void:
 
 func _on_submit_score_skip() -> void:
 	leaderboard.display_leaderboard(speedrun_timer.get_run_time(), "Anonymous") 
+
+
+func _on_trophy_collected() -> void:
+	print("Trophy collected")
