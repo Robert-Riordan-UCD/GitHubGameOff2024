@@ -67,6 +67,42 @@ func _process(_delta: float) -> void:
 	update_audio()
 
 
+func _physics_process(delta: float) -> void:
+	if not can_move:
+		update_x_velocity(0, delta)
+		apply_gravity(delta)
+		move_and_slide()
+		return
+	
+	move_left_right(delta)
+	apply_gravity(delta)
+	
+	update_jump_buffer()
+	update_wall_jump_buffer()
+	update_coyote_timer()
+	update_wall_coyote_timer()
+	update_invert_coyote_timer()
+	update_dash_allowed()
+	
+	try_jump()
+	try_flip()
+	
+	move_and_slide()
+	
+	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
+
+
+func _input(event: InputEvent) -> void:
+	if not can_move: return
+	if event.is_action_pressed("jump"):
+		jump()
+	elif event.is_action_pressed("flip_gravity"):
+		flip_input()
+	elif event.is_action_pressed("dash") or event.is_action_pressed("dash_chord"):
+		dash()
+
+
+### Animations functions
 func select_animation():
 	if dead: return
 	if dashing:				animated_sprite_2d.play("Dash")
@@ -78,6 +114,13 @@ func select_animation():
 	else:					animated_sprite_2d.play("Falling")
 
 
+func flip_sprite():
+	if velocity.x != 0:
+		animated_sprite_2d.flip_h = velocity.x < 0
+	animated_sprite_2d.flip_v = up_direction != Vector2.UP
+
+
+### Audio functions
 func update_audio() -> void:
 	if wall_sliding:
 		if not sliding_sound.playing:
@@ -92,48 +135,14 @@ func update_audio() -> void:
 		sliding_sound.stop()
 
 
-func flip_sprite():
-	if velocity.x != 0:
-		animated_sprite_2d.flip_h = velocity.x < 0
-	animated_sprite_2d.flip_v = up_direction != Vector2.UP
-
-
-func _physics_process(delta: float) -> void:
-	if not can_move:
-		update_x_velocity(0, delta)
-		apply_gravity(delta)
-		move_and_slide()
-		return
-	
-	# Left/right movement
+### Movement functions
+func move_left_right(delta: float) -> void:
 	var direction: float = Input.get_axis("left", "right")
 	if not dashing:
 		if is_on_floor():
 			update_x_velocity(direction, delta)
 		elif not is_on_wall() and direction != 0:
 			update_x_velocity(direction*air_control, delta)
-	
-	apply_gravity(delta)
-	update_jump_buffer()
-	update_wall_jump_buffer()
-	update_coyote_timer()
-	update_wall_coyote_timer()
-	update_invert_coyote_timer()
-	update_dash_allowed()
-	try_jump()
-	try_flip()
-	move_and_slide()
-	wall_sliding = is_on_wall_only() and Input.is_action_pressed("latch")
-
-
-func _input(event: InputEvent) -> void:
-	if not can_move: return
-	if event.is_action_pressed("jump"):
-		jump()
-	elif event.is_action_pressed("flip_gravity"):
-		flip_input()
-	elif event.is_action_pressed("dash") or event.is_action_pressed("dash_chord"):
-		dash()
 
 
 func update_x_velocity(direction: float, delta: float) -> void:	
@@ -152,6 +161,22 @@ func update_x_velocity(direction: float, delta: float) -> void:
 		velocity.x = 0
 
 
+func apply_gravity(delta: float) -> void:
+	if dashing: return
+	if wall_sliding:
+		wall_slide(delta)
+	else:
+		fall(delta)
+
+
+func fall(delta: float) -> void:
+	if Input.is_action_pressed("jump") and velocity.y*up_direction.y > 0:
+		velocity.y -= delta*gravity*up_direction.y
+	else:
+		velocity.y -= delta*gravity*fall_multiplier*up_direction.y
+
+
+### Jump functions
 func jump() -> void:
 	if is_on_floor() or coyote_avalible:
 		velocity.y = up_direction.y * jump_height * gravity / 10
@@ -165,6 +190,14 @@ func jump() -> void:
 		clear_jump_buffers()
 
 
+func try_jump() -> void:
+	if jump_buffer_avalible and is_on_floor():
+		jump()
+	elif wall_jump_buffer_avalible and is_on_wall():
+		jump()
+
+
+### Dash functions
 func dash() -> void:
 	if dashing or not can_dash: return
 	if not (Input.is_action_pressed("dash") and Input.is_action_pressed("dash_chord")): return
@@ -183,24 +216,7 @@ func dash() -> void:
 		dashing = false
 
 
-func flip_input() -> void:
-	flip_buffer = min(2, flip_buffer+1)
-	await  get_tree().create_timer(flip_double_click_timer).timeout
-	flip_buffer = max(0, flip_buffer-1)
-
-
-func try_jump() -> void:
-	if jump_buffer_avalible and is_on_floor():
-		jump()
-	elif wall_jump_buffer_avalible and is_on_wall():
-		jump()
-
-
-func try_flip() -> void:
-	if flip_buffer >= 2 and (is_on_floor() or is_on_wall() or flip_coyote_avalible):
-		flip()
-
-
+### Invert functions
 func flip() -> void:
 	up_direction = -up_direction
 	flip_sound.play()
@@ -211,21 +227,18 @@ func flip() -> void:
 	flip_coyote_was_on_surface = false
 
 
-func apply_gravity(delta: float) -> void:
-	if dashing: return
-	if wall_sliding:
-		wall_slide(delta)
-	else:
-		fall(delta)
+func try_flip() -> void:
+	if flip_buffer >= 2 and (is_on_floor() or is_on_wall() or flip_coyote_avalible):
+		flip()
 
 
-func fall(delta: float) -> void:
-	if Input.is_action_pressed("jump") and velocity.y*up_direction.y > 0:
-		velocity.y -= delta*gravity*up_direction.y
-	else:
-		velocity.y -= delta*gravity*fall_multiplier*up_direction.y
+func flip_input() -> void:
+	flip_buffer = min(2, flip_buffer+1)
+	await  get_tree().create_timer(flip_double_click_timer).timeout
+	flip_buffer = max(0, flip_buffer-1)
 
 
+### Wall slide functions
 func wall_slide(delta: float) -> void:
 	# Only slide if falling or player wants to
 	if velocity.y*up_direction.y < 0:
@@ -240,6 +253,12 @@ func wall_slide(delta: float) -> void:
 		fall(delta)
 
 
+func update_dash_allowed() -> void:
+	if is_on_floor():
+		can_dash = true
+
+
+### Buffer and Coyote functions
 func update_jump_buffer() -> void:
 	if is_on_wall():
 		jump_buffer_avalible = false
@@ -288,11 +307,6 @@ func update_invert_coyote_timer() -> void:
 		flip_coyote_was_on_surface = is_on_floor() or is_on_wall()
 
 
-func update_dash_allowed() -> void:
-	if is_on_floor():
-		can_dash = true
-
-
 func clear_jump_buffers() -> void:
 	await get_tree().create_timer(0.01).timeout # Need to wait until physics update happens so player has jumped and was_on vars don't get overwritten
 	jump_buffer_avalible = false
@@ -304,6 +318,7 @@ func clear_jump_buffers() -> void:
 	coyote_was_on_wall = false
 
 
+### Functions to be called from outside player.gd
 func finished() -> void:
 	can_move = false
 
