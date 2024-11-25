@@ -19,3 +19,42 @@ func _on_clear_pressed() -> void:
 	await save_leaderboards()
 	for leaderboard in leaderboards:
 		SilentWolf.Scores.wipe_leaderboard(leaderboard)
+
+
+@onready var file_dialog: FileDialog = $VBoxContainer/HBoxContainer/FileDialog
+func _on_upload_leaderboard_pressed() -> void:
+	file_dialog.popup_centered(Vector2(640, 320))
+
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	upload_leaderboard(path)
+
+
+func upload_leaderboard(path: String) -> void:
+	var file = FileAccess.open(path, FileAccess.READ)
+	if not file:
+		print("File not found: " + path)
+		return
+	
+	var json = JSON.new()
+	var error = json.parse(file.get_as_text())
+	if not (error == OK):
+		print("Could not parse file")
+		return
+	
+	var scores: Array = json.data["scores"]
+	var leaderboard: String = json.data["ld_name"]
+	
+	var uploaded: int = 0
+	for score in scores:
+		var sw_result: Dictionary = await SilentWolf.Scores.save_score(
+			score["player_name"],
+			score["score"],
+			leaderboard
+		).sw_save_score_complete
+		if sw_result["error"]:
+			print("Failed to upload score: " + str(score))
+		else:
+			uploaded += 1
+	
+	print("Uploaded ", uploaded, "/", scores.size())
