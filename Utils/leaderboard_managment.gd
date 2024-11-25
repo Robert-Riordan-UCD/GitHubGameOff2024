@@ -16,6 +16,6 @@ func _on_download_pressed() -> void:
 
 
 func _on_clear_pressed() -> void:
-	save_leaderboards()
+	await save_leaderboards()
 	for leaderboard in leaderboards:
 		SilentWolf.Scores.wipe_leaderboard(leaderboard)
