@@ -13,6 +13,7 @@ extends Node2D
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	reset()
+	player.can_move = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -66,3 +67,9 @@ func _on_submit_score_skip() -> void:
 func _on_trophy_collected() -> void:
 	trophy_count += 1
 	trophy_count = clamp(trophy_count, 0, 3)
+
+
+@onready var start_screen: Control = $GUI/StartScreen
+func _on_start_screen_start() -> void:
+	await start_screen.dismiss()
+	player.can_move = true
