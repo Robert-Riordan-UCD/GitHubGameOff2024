@@ -201,7 +201,7 @@ func try_jump() -> void:
 func dash() -> void:
 	if dashing or not can_dash: return
 	if not (Input.is_action_pressed("dash") and Input.is_action_pressed("dash_chord")): return
-	var direction: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up","down"))
+	var direction: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up","down")).normalized()
 	if direction != Vector2.ZERO:
 		velocity = dash_boost*direction*max_run_speed
 		dashing = true
