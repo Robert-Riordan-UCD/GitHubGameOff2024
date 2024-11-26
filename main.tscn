@@ -443,6 +443,7 @@ script = ExtResource("17_lpotk")
 player = NodePath("../../../Player")
 
 [node name="StartScreen" parent="GUI" instance=ExtResource("17_lapu4")]
+visible = false
 
 [connection signal="player_not_started" from="PlayerStart" to="." method="_on_player_start_player_not_started"]
 [connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]

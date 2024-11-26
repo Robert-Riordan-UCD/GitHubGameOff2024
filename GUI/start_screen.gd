@@ -4,6 +4,11 @@ signal start
 
 @onready var started: bool = false
 
+
+func _ready() -> void:
+	visible = true
+
+
 func _input(event: InputEvent) -> void:
 	if started: return
 	if event is InputEventKey or event is InputEventJoypadButton:
