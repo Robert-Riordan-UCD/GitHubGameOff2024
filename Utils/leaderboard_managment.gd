@@ -9,6 +9,7 @@ func save_leaderboards() -> void:
 		var time_stamp: String = Time.get_datetime_string_from_datetime_dict(Time.get_datetime_dict_from_system(), false)
 		var file = FileAccess.open("res://Speedrunning/LeaderboardBackups/"+leaderboard+"/leaderboard"+time_stamp+".json", FileAccess.WRITE)
 		file.store_string(str(sw_result))
+	print("Leaderboards Saved")
 
 
 func _on_download_pressed() -> void:
@@ -19,6 +20,7 @@ func _on_clear_pressed() -> void:
 	await save_leaderboards()
 	for leaderboard in leaderboards:
 		SilentWolf.Scores.wipe_leaderboard(leaderboard)
+	print("Leaderboards Cleared")
 
 
 @onready var file_dialog: FileDialog = $VBoxContainer/HBoxContainer/FileDialog
