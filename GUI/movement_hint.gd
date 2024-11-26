@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.get_axis("left", "right"):
+	if need_move_hint and Input.get_axis("left", "right"):
 		need_move_hint = false
 		dismiss_move_hint()
 
