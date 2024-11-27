@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=29 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c400vwrumptxa" path="res://Assets/Hints/Controller_hints.png" id="8_ys5lt"]
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
+[ext_resource type="Texture2D" uid="uid://8o7tnp8lt31a" path="res://Assets/Hints/Arrows.png" id="12_ge2yv"]
 [ext_resource type="PackedScene" uid="uid://u2j53ch2svph" path="res://Speedrunning/Trophy/trophy.tscn" id="13_hivip"]
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
 [ext_resource type="PackedScene" uid="uid://nggkbo5ff0aa" path="res://GUI/start_screen.tscn" id="17_lapu4"]
@@ -382,6 +383,43 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_0863q")
 region_enabled = true
 region_rect = Rect2(4.84888, 246.417, 66.867, 50.3381)
+
+[node name="Directions" type="Node2D" parent="Hints"]
+
+[node name="Arrows" type="Sprite2D" parent="Hints/Directions"]
+position = Vector2(702, -156)
+rotation = -1.42471
+texture = ExtResource("12_ge2yv")
+region_enabled = true
+region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
+
+[node name="Arrows2" type="Sprite2D" parent="Hints/Directions"]
+position = Vector2(960, -455)
+rotation = 1.55221
+texture = ExtResource("12_ge2yv")
+region_enabled = true
+region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
+
+[node name="Arrows3" type="Sprite2D" parent="Hints/Directions"]
+position = Vector2(1971, -474)
+rotation = -1.22857
+texture = ExtResource("12_ge2yv")
+region_enabled = true
+region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
+
+[node name="Arrows4" type="Sprite2D" parent="Hints/Directions"]
+position = Vector2(1339, -892)
+rotation = -2.34078
+texture = ExtResource("12_ge2yv")
+region_enabled = true
+region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
+
+[node name="Arrows5" type="Sprite2D" parent="Hints/Directions"]
+position = Vector2(140, -807)
+rotation = -1.22775
+texture = ExtResource("12_ge2yv")
+region_enabled = true
+region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
 
 [node name="Player" parent="." instance=ExtResource("2_qlywh")]
 position = Vector2(-140, 8)
