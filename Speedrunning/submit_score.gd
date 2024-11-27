@@ -14,6 +14,11 @@ func display(new_time: float) -> void:
 	line_edit.grab_focus()
 
 
+func _input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed("ui_accept"):
+		_on_submit_pressed()
+
+
 func _on_submit_pressed() -> void:
 	if line_edit.text == "": return
 	submit.emit(line_edit.text)

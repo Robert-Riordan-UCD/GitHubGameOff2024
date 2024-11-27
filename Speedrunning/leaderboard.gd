@@ -31,7 +31,6 @@ func display_leaderboard(new_time: float, player_name: String, trophy_count: int
 	players_score = new_time
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	button.grab_focus()
 	
 	visible = true
 	
@@ -60,6 +59,8 @@ func display_leaderboard(new_time: float, player_name: String, trophy_count: int
 	loading.visible = false
 	preloading = false
 	preloaded = false
+	
+	button.grab_focus()
 
 
 func hide_leader_board() -> void:

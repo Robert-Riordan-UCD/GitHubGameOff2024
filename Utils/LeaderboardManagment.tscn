@@ -30,7 +30,7 @@ layout_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/HBoxContainer"]
 mode = 2
-title = "Select a file"
+title = "Open a File"
 initial_position = 2
 size = Vector2i(292, 151)
 ok_button_text = "Open"
