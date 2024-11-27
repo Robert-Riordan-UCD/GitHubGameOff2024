@@ -220,6 +220,7 @@ func dash() -> void:
 func flip() -> void:
 	up_direction = -up_direction
 	flip_sound.play()
+	collision_shape_2d.position.y = -collision_shape_2d.position.y
 	
 	clear_jump_buffers()
 	flip_buffer = 0
