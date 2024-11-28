@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://duoipri0j28rs" path="res://Utils/restarting_particles.tscn" id="3_cj1tp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8h83p"]
-size = Vector2(120, 89)
+size = Vector2(58, 45)
 
 [node name="Finish" type="Node2D"]
 script = ExtResource("1_lbb6n")
@@ -18,7 +18,7 @@ region_rect = Rect2(188.445, 5.49807, 126.499, 90.5019)
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 0.5)
+position = Vector2(0, 22.5)
 shape = SubResource("RectangleShape2D_8h83p")
 
 [node name="Particles" type="Node2D" parent="."]
