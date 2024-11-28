@@ -7,7 +7,7 @@ func save_leaderboards() -> void:
 	for leaderboard in leaderboards:
 		var sw_result: Dictionary = await SilentWolf.Scores.get_scores(0, leaderboard).sw_get_scores_complete
 		var time_stamp: String = Time.get_datetime_string_from_datetime_dict(Time.get_datetime_dict_from_system(), false)
-		var file = FileAccess.open("res://Speedrunning/LeaderboardBackups/"+leaderboard+"/leaderboard"+time_stamp+".json", FileAccess.WRITE)
+		var file: FileAccess = FileAccess.open("res://Speedrunning/LeaderboardBackups/"+leaderboard+"/leaderboard"+time_stamp+".json", FileAccess.WRITE)
 		file.store_string(str(sw_result))
 	print("Leaderboards Saved")
 
@@ -33,13 +33,13 @@ func _on_file_dialog_file_selected(path: String) -> void:
 
 
 func upload_leaderboard(path: String) -> void:
-	var file = FileAccess.open(path, FileAccess.READ)
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
 		print("File not found: " + path)
 		return
 	
-	var json = JSON.new()
-	var error = json.parse(file.get_as_text())
+	var json: JSON = JSON.new()
+	var error: Error = json.parse(file.get_as_text())
 	if not (error == OK):
 		print("Could not parse file")
 		return
@@ -48,7 +48,7 @@ func upload_leaderboard(path: String) -> void:
 	var leaderboard: String = json.data["ld_name"]
 	
 	var uploaded: int = 0
-	for score in scores:
+	for score: Dictionary in scores:
 		var sw_result: Dictionary = await SilentWolf.Scores.save_score(
 			score["player_name"],
 			score["score"],
