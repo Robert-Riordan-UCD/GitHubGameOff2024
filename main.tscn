@@ -436,7 +436,6 @@ position = Vector2(3, -1)
 
 [node name="Trophy2" parent="Trophies" instance=ExtResource("13_hivip")]
 position = Vector2(1064, -704)
-rotation = 3.14159
 
 [node name="Trophy3" parent="Trophies" instance=ExtResource("13_hivip")]
 position = Vector2(-946, -445)
@@ -484,6 +483,7 @@ player = NodePath("../../../Player")
 
 [node name="Paused" type="TextureRect" parent="GUI/MarginContainer" node_paths=PackedStringArray("speedrun_timer")]
 process_mode = 3
+visible = false
 layout_mode = 2
 texture = ExtResource("19_3nkdw")
 expand_mode = 1

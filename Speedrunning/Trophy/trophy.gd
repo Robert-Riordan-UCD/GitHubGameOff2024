@@ -11,10 +11,11 @@ func _ready() -> void:
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	collected.emit()
-	visible = false
 	area_2d.set_deferred("monitoring", false)
+	animation_player.play("collected")
 
 
 func reset() -> void:
-	visible = true
 	area_2d.set_deferred("monitoring", true)
+	animation_player.play("idle")
+	scale = Vector2(1, 1)
