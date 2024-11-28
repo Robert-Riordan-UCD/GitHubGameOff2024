@@ -430,7 +430,7 @@ region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
 position = Vector2(752, -432)
 
 [node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("13_bej3e")]
-position = Vector2(1970, -431)
+position = Vector2(2211, -355)
 
 [node name="Checkpoint3" parent="Checkpoints" instance=ExtResource("13_bej3e")]
 position = Vector2(1609, -952)
