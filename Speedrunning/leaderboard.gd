@@ -71,7 +71,7 @@ func hide_leader_board() -> void:
 
 
 func clear_leader_board() -> void:
-	for child in leaderboard_table.get_children().slice(3):
+	for child: LeaderboardLabel in leaderboard_table.get_children().slice(3):
 		leaderboard_table.remove_child(child)
 		child.queue_free()
 
@@ -84,25 +84,24 @@ func submit_score(new_time: float, player_name: String) -> String:
 
 func fetech_top_ten() -> void:
 	var sw_result: Dictionary = await SilentWolf.Scores.get_scores(10, str(current_leaderboard)).sw_get_scores_complete
-	var scores = sw_result.scores
+	var scores: Array = sw_result.scores
 	top_ten.clear()
-	for score in scores:
+	for score: Dictionary in scores:
 		top_ten.append(Score.new(score.player_name, -score.score))
 
 
 # Return true if the player is in the top ten
-func update_top_ten(score, player_name) -> bool:
+func update_top_ten(score: float, player_name: String) -> bool:
 	var player_position: int = 0
-	for player in top_ten:
+	for player: Score in top_ten:
 		if score < player.score:
 			top_ten.insert(player_position, Score.new(player_name, score, true))
 			return true
 		player_position += 1
-	if player_position <= 10:
-		top_ten.insert(player_position, Score.new(player_name, score, true))
+	if top_ten.size() < 10:
+		top_ten.insert(top_ten.size(), Score.new(player_name, score, true))
 		return true
 	return false
-
 
 
 # TODO: Handle error result
@@ -114,10 +113,10 @@ func display_top_ten() -> void:
 
 
 func display_player_score(score_id: String, player_name: String) -> void:
-	var sw_result = await SilentWolf.Scores.get_scores_around(score_id, 1, str(current_leaderboard)).sw_get_scores_around_complete
+	var sw_result: Dictionary = await SilentWolf.Scores.get_scores_around(score_id, 1, str(current_leaderboard)).sw_get_scores_around_complete
 	# Score above
 	if sw_result.scores_above.size() == 0: return # Player is first :D
-	var above = sw_result.scores_above[0]
+	var above: Dictionary = sw_result.scores_above[0]
 	append_score(above.position, above.player_name, -above.score)
 
 	# Players score
@@ -125,7 +124,7 @@ func display_player_score(score_id: String, player_name: String) -> void:
 
 	# Score below
 	if sw_result.scores_below.size() == 0: return # Player is last :o
-	var below = sw_result.scores_below[0]
+	var below: Dictionary = sw_result.scores_below[0]
 	append_score(below.position, below.player_name, -below.score)
 	
 
