@@ -229,7 +229,7 @@ func flip() -> void:
 
 
 func try_flip() -> void:
-	if flip_buffer >= 2 and (is_on_floor() or is_on_wall() or flip_coyote_avalible):
+	if flip_buffer >= 2 and (is_on_floor() or wall_sliding or flip_coyote_avalible):
 		flip()
 
 
@@ -300,13 +300,13 @@ func update_wall_coyote_timer() -> void:
 
 
 func update_invert_coyote_timer() -> void:
-	if flip_coyote_was_on_surface and not (is_on_floor() or is_on_wall()):
+	if flip_coyote_was_on_surface and not (is_on_floor() or wall_sliding):
 		flip_coyote_was_on_surface = false
 		flip_coyote_avalible = true
 		await get_tree().create_timer(coyote_time).timeout
 		flip_coyote_avalible = false
 	else:
-		flip_coyote_was_on_surface = is_on_floor() or is_on_wall()
+		flip_coyote_was_on_surface = is_on_floor() or wall_sliding
 
 
 func clear_jump_buffers() -> void:
