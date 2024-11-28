@@ -331,6 +331,7 @@ func reset(start_position: Vector2) -> void:
 	can_move = true
 	dead = false
 	up_direction = Vector2.UP
+	collision_shape_2d.position.y = abs(collision_shape_2d.position.y)
 
 
 func _on_hurt_box_body_entered(_body: Node2D) -> void:
