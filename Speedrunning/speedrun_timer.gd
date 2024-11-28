@@ -1,3 +1,4 @@
+class_name SpeedrunTimer
 extends Control
 
 @onready var start_time: float = Time.get_unix_time_from_system()
@@ -33,12 +34,3 @@ func reset_timer():
 func get_run_time():
 	if stopped: return stop_time
 	return snapped(Time.get_unix_time_from_system() - start_time + accumulated_time, 0.001)
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().paused = not get_tree().paused
-		if get_tree().paused:
-			stop_timer()
-		else:
-			resume_timer()

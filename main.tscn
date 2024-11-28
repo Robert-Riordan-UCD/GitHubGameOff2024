@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=31 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
 [ext_resource type="PackedScene" uid="uid://nggkbo5ff0aa" path="res://GUI/start_screen.tscn" id="17_lapu4"]
 [ext_resource type="Script" path="res://GUI/movement_hint.gd" id="17_lpotk"]
+[ext_resource type="Texture2D" uid="uid://b7vmno3gc5x8u" path="res://Assets/GUI/paused.png" id="19_3nkdw"]
+[ext_resource type="Script" path="res://Utils/paused.gd" id="19_xoxt2"]
 
 [sub_resource type="Gradient" id="Gradient_acngi"]
 offsets = PackedFloat32Array(1)
@@ -479,6 +481,15 @@ size_flags_vertical = 8
 text = "Use LEFT STICK or WASD to move"
 script = ExtResource("17_lpotk")
 player = NodePath("../../../Player")
+
+[node name="Paused" type="TextureRect" parent="GUI/MarginContainer" node_paths=PackedStringArray("speedrun_timer")]
+process_mode = 3
+layout_mode = 2
+texture = ExtResource("19_3nkdw")
+expand_mode = 1
+stretch_mode = 3
+script = ExtResource("19_xoxt2")
+speedrun_timer = NodePath("../SpeedrunTimer")
 
 [node name="StartScreen" parent="GUI" instance=ExtResource("17_lapu4")]
 visible = false
