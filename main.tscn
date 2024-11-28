@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=32 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
 [ext_resource type="PackedScene" uid="uid://tu0rjij1il0v" path="res://Speedrunning/submit_score.tscn" id="9_ujeic"]
 [ext_resource type="Texture2D" uid="uid://8o7tnp8lt31a" path="res://Assets/Hints/Arrows.png" id="12_ge2yv"]
+[ext_resource type="PackedScene" uid="uid://b6g7cgy8183kp" path="res://Speedrunning/checkpoint.tscn" id="13_bej3e"]
 [ext_resource type="PackedScene" uid="uid://u2j53ch2svph" path="res://Speedrunning/Trophy/trophy.tscn" id="13_hivip"]
 [ext_resource type="Texture2D" uid="uid://cspfkmg0vh788" path="res://Assets/World/Page.png" id="14_6faxv"]
 [ext_resource type="PackedScene" uid="uid://nggkbo5ff0aa" path="res://GUI/start_screen.tscn" id="17_lapu4"]
@@ -423,6 +424,17 @@ texture = ExtResource("12_ge2yv")
 region_enabled = true
 region_rect = Rect2(-0.0981407, 0.495607, 19.7845, 41.5474)
 
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint" parent="Checkpoints" instance=ExtResource("13_bej3e")]
+position = Vector2(752, -432)
+
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("13_bej3e")]
+position = Vector2(1970, -431)
+
+[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource("13_bej3e")]
+position = Vector2(1609, -952)
+
 [node name="Player" parent="." instance=ExtResource("2_qlywh")]
 position = Vector2(-140, 8)
 scale = Vector2(0.75, 0.75)
@@ -497,6 +509,9 @@ visible = false
 [connection signal="player_not_started" from="PlayerStart" to="." method="_on_player_start_player_not_started"]
 [connection signal="player_started" from="PlayerStart" to="." method="_on_player_start_player_started"]
 [connection signal="player_reached_finish" from="Finish" to="." method="_on_finish_player_reached_finish"]
+[connection signal="reached" from="Checkpoints/Checkpoint" to="." method="_on_checkpoint_reached"]
+[connection signal="reached" from="Checkpoints/Checkpoint2" to="." method="_on_checkpoint_reached"]
+[connection signal="reached" from="Checkpoints/Checkpoint3" to="." method="_on_checkpoint_reached"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="collected" from="Trophies/Trophy" to="." method="_on_trophy_collected"]
 [connection signal="collected" from="Trophies/Trophy2" to="." method="_on_trophy_collected"]

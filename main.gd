@@ -7,8 +7,10 @@ extends Node2D
 @onready var submit_score: Control = $GUI/MarginContainer/SubmitScore
 @onready var finish: Node2D = $Finish
 @onready var trophies: Node2D = $Trophies
+@onready var checkpoints: Node2D = $Checkpoints
 
 @onready var trophy_count: int = 0
+@onready var current_checkpoint: Checkpoint = null
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -22,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_player_hit() -> void:
-	reset()
+	reset_to_checkpoint()
 
 
 func reset() -> void:
@@ -33,7 +35,17 @@ func reset() -> void:
 	submit_score.visible = false
 	for t in trophies.get_children():
 		t.reset()
+	current_checkpoint = null
+	for checkpoint: Checkpoint in checkpoints.get_children():
+		checkpoint.reset()
 	trophy_count = 0
+
+
+func reset_to_checkpoint() -> void:
+	if current_checkpoint == null:
+		reset()
+		return
+	player.reset(current_checkpoint.global_position)
 
 
 func _on_finish_player_reached_finish() -> void:
@@ -73,3 +85,7 @@ func _on_trophy_collected() -> void:
 func _on_start_screen_start() -> void:
 	await start_screen.dismiss()
 	player.can_move = true
+
+
+func _on_checkpoint_reached(checkpoint: Checkpoint) -> void:
+	current_checkpoint = checkpoint
