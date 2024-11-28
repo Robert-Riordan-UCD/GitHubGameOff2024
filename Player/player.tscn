@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://n6paswmcoc2x"]
+[gd_scene load_steps=30 format=3 uid="uid://n6paswmcoc2x"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_qsck6"]
 [ext_resource type="Texture2D" uid="uid://b3yxno0c8wvqx" path="res://Assets/Player/Player.png" id="2_gpn6y"]
 [ext_resource type="Texture2D" uid="uid://c8xux6aso2aio" path="res://Assets/Player/Death.png" id="3_qp13d"]
 [ext_resource type="AudioStream" uid="uid://c0tcdloegg4hk" path="res://Assets/Audio/running.mp3" id="3_yew4h"]
+[ext_resource type="Texture2D" uid="uid://cki5mapye4s1x" path="res://Assets/Player/Celebrate.png" id="4_8mkq0"]
 [ext_resource type="AudioStream" uid="uid://gr7jr4n83o8s" path="res://Assets/Audio/slide.mp3" id="5_xvgmb"]
 [ext_resource type="AudioStream" uid="uid://cppl6reaqh1g" path="res://Assets/Audio/jump.mp3" id="6_yg1ew"]
 [ext_resource type="AudioStream" uid="uid://to1ubarm80ib" path="res://Assets/Audio/die.mp3" id="7_hrip3"]
@@ -68,6 +69,14 @@ region = Rect2(232, 0, 58, 75)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yibwo"]
 atlas = ExtResource("2_gpn6y")
 region = Rect2(0, 150, 50, 75)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p1w3"]
+atlas = ExtResource("4_8mkq0")
+region = Rect2(0, 0, 16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyldh"]
+atlas = ExtResource("4_8mkq0")
+region = Rect2(49, 0, 16, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m0mup"]
 animations = [{
@@ -150,6 +159,17 @@ animations = [{
 "loop": false,
 "name": &"Wall Slide",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3p1w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyldh")
+}],
+"loop": true,
+"name": &"Win",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x38xo"]
@@ -168,7 +188,8 @@ can_dash_through_wall = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m0mup")
-animation = &"Idle"
+animation = &"Win"
+frame_progress = 0.645115
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)

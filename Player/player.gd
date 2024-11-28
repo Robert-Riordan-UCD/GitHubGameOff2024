@@ -47,6 +47,7 @@ signal hit
 @onready var can_dash: bool = false
 @onready var can_move: bool = true
 @onready var dead: bool = false
+@onready var reached_finish: bool = false
 
 # Colliders
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -105,7 +106,8 @@ func _input(event: InputEvent) -> void:
 ### Animations functions
 func select_animation():
 	if dead: return
-	if dashing:				animated_sprite_2d.play("Dash")
+	if reached_finish:		animated_sprite_2d.play("Win")
+	elif dashing:				animated_sprite_2d.play("Dash")
 	elif is_on_floor():
 		if velocity.x == 0:	animated_sprite_2d.play("Idle")
 		else:				animated_sprite_2d.play("Run")
@@ -323,12 +325,13 @@ func clear_jump_buffers() -> void:
 ### Functions to be called from outside player.gd
 func finished() -> void:
 	can_move = false
-
+	reached_finish = true
 
 func reset(start_position: Vector2) -> void:
 	global_position = start_position
 	velocity = Vector2.ZERO
 	can_move = true
+	reached_finish = false
 	dead = false
 	up_direction = Vector2.UP
 	collision_shape_2d.position.y = abs(collision_shape_2d.position.y)
