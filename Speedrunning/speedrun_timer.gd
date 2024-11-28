@@ -13,24 +13,24 @@ func _process(_delta: float) -> void:
 	label.text = "%.2f s" % get_run_time()
 
 
-func stop_timer():
+func stop_timer() -> void:
 	if stopped: return
 	stop_time = get_run_time()
 	stopped = true
 
 
-func resume_timer():
+func resume_timer() -> void:
 	stopped = false
 	accumulated_time = stop_time
 	start_time = Time.get_unix_time_from_system()
 
 
-func reset_timer():
+func reset_timer() -> void:
 	start_time = Time.get_unix_time_from_system()
 	stopped = false
 	accumulated_time = 0
 
 
-func get_run_time():
+func get_run_time() -> float:
 	if stopped: return stop_time
 	return snapped(Time.get_unix_time_from_system() - start_time + accumulated_time, 0.001)

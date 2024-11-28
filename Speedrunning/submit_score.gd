@@ -32,10 +32,10 @@ func _on_skip_pressed() -> void:
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:
-	var allowed_characters = "[A-Za-z0-9 ]"
-	var old_caret_position = line_edit.caret_column
-	var word = ""
-	var regex = RegEx.new()
+	var allowed_characters: String = "[A-Za-z0-9 ]"
+	var old_caret_position: int = line_edit.caret_column
+	var word: String = ""
+	var regex: RegEx = RegEx.new()
 	regex.compile(allowed_characters)
 	for valid_character in regex.search_all(new_text):
 		word += valid_character.get_string()

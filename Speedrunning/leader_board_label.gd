@@ -1,3 +1,4 @@
+class_name LeaderboardLabel
 extends Label
 
 @onready var timer: Timer = $Timer

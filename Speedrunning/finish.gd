@@ -16,7 +16,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await get_tree().create_timer(0.05).timeout
 
 
-func reset():
+func reset() -> void:
 	finished = false
 	for particle: RestartingParticles in particles.get_children():
 		particle.emit = false

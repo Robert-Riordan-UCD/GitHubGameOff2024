@@ -104,7 +104,7 @@ func _input(event: InputEvent) -> void:
 
 
 ### Animations functions
-func select_animation():
+func select_animation() -> void:
 	if dead: return
 	if reached_finish:		animated_sprite_2d.play("Win")
 	elif dashing:				animated_sprite_2d.play("Dash")
@@ -116,7 +116,7 @@ func select_animation():
 	else:					animated_sprite_2d.play("Falling")
 
 
-func flip_sprite():
+func flip_sprite() -> void:
 	if velocity.x != 0:
 		animated_sprite_2d.flip_h = velocity.x < 0
 	animated_sprite_2d.flip_v = up_direction != Vector2.UP
