@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://duoipri0j28rs"]
+
+[ext_resource type="Texture2D" uid="uid://b5l5fsdanj2yy" path="res://Assets/Particles/particles.png" id="1_apnrw"]
+[ext_resource type="Script" path="res://Utils/RestartingParticle.gd" id="2_o1rbf"]
+
+[node name="RestartingParticles" type="CPUParticles2D"]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.9
+randomness = 0.44
+lifetime_randomness = 0.6
+texture = ExtResource("1_apnrw")
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 60.0
+initial_velocity_min = 118.52
+initial_velocity_max = 340.74
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+script = ExtResource("2_o1rbf")
