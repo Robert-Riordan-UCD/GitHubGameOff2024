@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://61vndkuswjgq"]
+[gd_scene load_steps=39 format=4 uid="uid://61vndkuswjgq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xxvb3"]
 [ext_resource type="Texture2D" uid="uid://dnnliawktfx1p" path="res://Assets/World/Tileset.png" id="1_ypobh"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://culdpijj5tkws" path="res://Speedrunning/leaderboard.tscn" id="7_g77eq"]
 [ext_resource type="Texture2D" uid="uid://cw4n6ajgj27n5" path="res://Assets/World/Background/godot.png" id="7_gr0og"]
 [ext_resource type="Texture2D" uid="uid://b7diay7u4kw43" path="res://Assets/World/Background/Git.png" id="8_8ib7u"]
+[ext_resource type="Texture2D" uid="uid://nbx2btcdgv7c" path="res://Assets/World/Background/Github.png" id="8_o7kb8"]
 [ext_resource type="Texture2D" uid="uid://cc3lr0hk5wnff" path="res://Assets/Hints/I_keycap.png" id="8_rssys"]
 [ext_resource type="Texture2D" uid="uid://c400vwrumptxa" path="res://Assets/Hints/Controller_hints.png" id="8_ys5lt"]
 [ext_resource type="Texture2D" uid="uid://bt5lmt74mhcd0" path="res://Assets/Hints/J+K_keycaps.png" id="9_n67xl"]
@@ -327,6 +328,13 @@ position = Vector2(1101, -59)
 rotation = 0.118841
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_gr0og")
+
+[node name="Github" type="Sprite2D" parent="BackgroundEastereggs"]
+modulate = Color(1, 1, 1, 0.325)
+position = Vector2(2315, -564)
+rotation = 0.519296
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_o7kb8")
 
 [node name="Git" type="Sprite2D" parent="BackgroundEastereggs"]
 modulate = Color(1, 1, 1, 0.271)
