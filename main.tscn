@@ -372,26 +372,25 @@ position = Vector2(1959, -672)
 
 [node name="LKeycap" type="Sprite2D" parent="Hints/WallJump"]
 self_modulate = Color(1, 1, 1, 0.476)
-position = Vector2(10, -24)
+position = Vector2(-43, -20)
 rotation = -0.178024
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_piw6h")
 
 [node name="XButton" type="Sprite2D" parent="Hints/WallJump"]
 self_modulate = Color(1, 1, 1, 0.476)
-position = Vector2(17, 32)
+position = Vector2(-47, -80)
 rotation = 0.168118
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("8_ys5lt")
 region_enabled = true
 region_rect = Rect2(0.244812, -1.23154, 208.63, 218.452)
 
 [node name="Player" type="Sprite2D" parent="Hints/WallJump"]
 self_modulate = Color(1, 1, 1, 0.443)
-position = Vector2(-5, 9)
+position = Vector2(-34, -50)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_0863q")
-flip_h = true
 region_enabled = true
 region_rect = Rect2(14, 166, 33, 54.6266)
 
