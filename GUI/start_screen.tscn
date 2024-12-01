@@ -42,7 +42,9 @@ offset_right = 20.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Notepad Ace is better with a controller
+text = "Notepad Ace is good with a keyboard
+but it's better with a controller
+
 
 Press any button"
 label_settings = SubResource("LabelSettings_4d7xv")
