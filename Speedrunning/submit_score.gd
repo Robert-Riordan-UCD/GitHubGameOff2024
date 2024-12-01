@@ -7,6 +7,13 @@ signal skip
 @onready var time: Label = $VBoxContainer/Time
 
 
+func _ready() -> void:
+	var file: FileAccess = FileAccess.open("user://username.txt", FileAccess.READ)
+	if file:
+		line_edit.text = file.get_as_text()
+		line_edit.caret_column = line_edit.text.length()
+
+
 func display(new_time: float) -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	time.text = str(new_time) + ' s'
@@ -23,7 +30,14 @@ func _on_submit_pressed() -> void:
 	if line_edit.text == "": return
 	submit.emit(line_edit.text)
 	line_edit.release_focus()
+	save_username(line_edit.text)
 	visible = false
+
+
+func save_username(username: String) -> void:
+	var file: FileAccess = FileAccess.open("user://username.txt", FileAccess.WRITE)
+	if file:
+		file.store_string(username)
 
 
 func _on_skip_pressed() -> void:
